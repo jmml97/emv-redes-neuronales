@@ -20,5 +20,6 @@
 __latexindent_temp.tex
 
 !img/*.pdf
+!recursos/*.pdf
 *.gnuplot
 *.table
