@@ -66,6 +66,8 @@
 \setlist[itemize]{leftmargin=*, itemsep=0pt}
 
 \usepackage[labelfont=sc]{caption}
+\usepackage[labelfont=default]{subcaption}
+%\usepackage{graphicx}
 
 % Tikz
 
@@ -201,7 +203,65 @@ afterskip=2ex]{section,subsection,subsubsection}
 
 \section{Introducción}
 
-Hola.
+
+\section{Estructura y funcionamiento de las redes neuronales}
+
+\subsection{La neurona de McCulloch-Pitts}
+
+La neurona de McCulloch-Pitts \parencite{mcculloch_logical_1943} es un modelo computacional que consiste en múltiples entradas (imitando las dendritas) y una sola salida (imitando el axón). Las entradas se denotan por $X_1,X_2,\dots, X_r$ y la salida por $Y$, donde cada una puede tomar el valor $0$ (apagado) o $1$ (activado). Cada conexión puede ser de tipo excitador o inhibidor, y si alguna de ellas es inhibidora y transmite el valor $1$, la salida es directamente $0$. Si no hay conexiones inhibidoras activadas se suman las entradas para producir un valor de \textit{excitación total} $U = \sum_{j} X_j$, y se compara con un valor de \textit{umbral} $\theta$: si $U \ge \theta$ la salida es $Y=1$, en otro caso la salida es $Y=0$. Notamos que si $\theta > r$ la salida siempre será $0$, y si $\theta = 0$ y no hay conexiones inhibidoras activadas, la salida será siempre $1$. Podemos ver una ilustración de esta neurona en la Figura \ref{fig:mcculloch-pitts}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{img/mcculloch-pitts}
+  \caption{Neurona de McCulloch-Pitts con $r$ entradas binarias $X_1,\dots,X_r$, una salida binaria $Y$ y un umbral $\theta$. Extraída de \parencite{izenman_modern_2008}.}
+  \label{fig:mcculloch-pitts}
+\end{figure}
+
+Observamos que para un valor fijo de $\theta$, la neurona de McCulloch-Pitts divide el espacio de entrada en dos mitades determinadas por el hiperplano $\sum_j X_j = \theta$; los puntos $(X_1, \dots, X_r)$ con salida $Y=1$ quedan a un lado del hiperplano, mientras que aquellos con $Y=0$ quedan en el otro lado.
+
+A modo de ejemplo, podemos utilizar esta neurona para implementar las funciones lógicas AND y OR de $r$ entradas. Para la función AND elegimos como umbral $\theta = r$, y así la salida tomará el valor 1 únicamente cuando todas las entradas sean 1. Para la función OR elegimos como umbral $\theta = 1$ para que la salida sea $1$ en cuanto alguna de las entradas sea $1$. La construcción de la función NOT es también inmediata, sin más que considerar una única entrada inhibidora y un umbral de $0$, por lo que combinando neuronas de McCulloch-Pitts podemos construir cualquier función booleana.
+
+A pesar de la universalidad mostrada, este modelo no es adecuado para realizar un proceso de aprendizaje, pues la única forma de resolver diferentes problemas es ir cambiando el número y tipo de las entradas y el valor del umbral. Esto hizo que se perdiese rápidamente el interés en este modelo computacional.
+
+\subsection{Perceptrón de una capa}
+
+A principios de los años 60 se produjo una segunda ola de interés en las redes neuronales artificales, cuando el psicólogo Frank Rosenblatt desarrolló un sistema llamado \textit{perceptrón} \parencite{rosenblatt_perceptron_1958} para imitar el funcionamiento de una neurona. Se trata básicamente de una neurona de McCulloch-Pitts dotada de unos \textit{pesos} $\beta_i \in \mathbb{R}$ en cada conexión $i=1,2,\dots, r$. Los pesos positivos representan conexiones excitadoras, los pesos negativos conexiones inhibidoras, y la magnitud de los mismos muestra la fuerza de la conexión.
+
+En este caso, se calcula la suma ponderada $U=\sum_j \beta_j X_j$, y la neurona se activa únicamente si $U\ge \theta$. Podemos convertir el umbral a $0$ introduciendo un elemento de \textit{sesgo} $\beta_0 = -\theta$ y una nueva pseudovariable $X_0 = 1$. De esta forma, como $U-\theta = \beta_0 + U$, podemos simplemente comparar $U=\sum_{j=0}^r \beta_j X_j$ con $0$. En la Figura \ref{fig:perceptron} podemos ver un esquema de un perceptrón descrito de esta forma.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{img/perceptron}
+  \caption{Perceptrón de $r$ entradas binarias con pesos $\{\beta_j\}$ y salida binaria $Y$. Incluye el término de sesgo $\beta_0$. Extraída de \parencite{izenman_modern_2008}.}
+  \label{fig:perceptron}
+\end{figure}
+
+Si los datos de entrada son \textit{linealmente separables} (es decir, se pueden separar por un hiperplano), podemos interpretar un perceptrón como un algoritmo de \textit{clasificación binaria}, de forma que los puntos con $Y=0$ pertenecen a una clase distinta a la de aquellos con $Y=1$; la partición queda determinada por el hiperplano $U=\theta$. En la Figura \ref{fig:separable} puede verse una representación gráfica de datos separables y no separables linealmente.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
+    \centering
+    \includegraphics[width=.8\textwidth]{img/non-separable}
+    \caption{No linealmente separables}
+  \end{subfigure}
+  \qquad
+  \begin{subfigure}[b]{0.4\textwidth}
+    \centering
+    \includegraphics[width=.8\textwidth]{img/separable}
+    \caption{Linealmente separables}
+  \end{subfigure}
+  \caption{Ejemplos de datos bidimensionales separables y no separables linealmente. Extraída de \parencite{wikipedia_separable}.}
+  \label{fig:separable}
+\end{figure}
+
+Podemos considerar una red neuronal de perceptrones interconectados organizados en dos grupos: $r$ nodos de entrada $\{X_j\}$ y $s$ nodos de salida $\{Y_k\}$, que pueden tomar tanto valores reales como discretos. Cada conexión $X_j \to Y_k$ está marcada por un peso $\beta_{jk}$. Este tipo de redes se conocen como \textit{redes de una capa}, pues aunque hay dos grupos solo se realizan cálculos significativos en los nodos de salida.
+
+\subsection{Funciones de activación}
+
+\subsection{Proceso de aprendizaje}
+
+\subsection{Perceptrón multicapa}
 
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA
