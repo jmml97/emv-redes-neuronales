@@ -225,7 +225,7 @@ A pesar de la universalidad mostrada, este modelo no es adecuado para realizar u
 
 \subsection{Perceptrón de una capa}
 
-A principios de los años 60 se produjo una segunda ola de interés en las redes neuronales artificales, cuando el psicólogo Frank Rosenblatt desarrolló un sistema llamado \textit{perceptrón} \parencite{rosenblatt_perceptron_1958} para imitar el funcionamiento de una neurona. Se trata básicamente de una neurona de McCulloch-Pitts dotada de unos \textit{pesos} $\beta_i \in \mathbb{R}$ en cada conexión $i=1,2,\dots, r$. Los pesos positivos representan conexiones excitadoras, los pesos negativos conexiones inhibidoras, y la magnitud de los mismos muestra la fuerza de la conexión.
+A principios de los años 60 se produjo una segunda oleada de interés en las redes neuronales artificales, cuando el psicólogo Frank Rosenblatt desarrolló un sistema llamado \textit{perceptrón} \parencite{rosenblatt_perceptron_1958} para imitar el funcionamiento de una neurona. Se trata básicamente de una neurona de McCulloch-Pitts dotada de unos \textit{pesos} $\beta_i \in \mathbb{R}$ en cada conexión $i=1,2,\dots, r$. Los pesos positivos representan conexiones excitadoras, los pesos negativos conexiones inhibidoras y la magnitud de los mismos muestra la fuerza de la conexión.
 
 En este caso, se calcula la suma ponderada $U=\sum_j \beta_j X_j$, y la neurona se activa únicamente si $U\ge \theta$. Podemos convertir el umbral a $0$ introduciendo un elemento de \textit{sesgo} $\beta_0 = -\theta$ y una nueva pseudovariable $X_0 = 1$. De esta forma, como $U-\theta = \beta_0 + U$, podemos simplemente comparar $U=\sum_{j=0}^r \beta_j X_j$ con $0$. En la Figura \ref{fig:perceptron} podemos ver un esquema de un perceptrón descrito de esta forma.
 
@@ -259,7 +259,27 @@ Podemos considerar una red neuronal de perceptrones interconectados organizados 
 
 \subsection{Funciones de activación}
 
+El objetivo ahora es construir una red de una capa que dado un problema sea capaz de aprender unos pesos para resolverlo. No es difícil darse cuenta de que hasta ahora en cada perceptrón solo hemos computado una transformación afín de los datos de entrada: si $\mathbf{X}=(X_1, \dots, X_r)^T$ es un vector aleatorio de entradas y tenemos $s$ nodos de salida, en cada uno de ellos calculamos
+\[
+U_k = \beta_{0k} + \mathbf{X}^T \pmb\beta_k, \quad k = 1,\dots, s,
+\]
+donde $\beta_{0k}$ es la constante de \textit{sesgo} y $\pmb{\beta}_k = (\beta_{1k}, \dots, \beta_{rk})^T$ es un vector de pesos. De esta forma la red no podría aprender funciones que tengan un comportamiento no lineal, y es por esto que se introduce el concepto de \textit{función de activación}. Consideramos una función no lineal $f$ que se aplica a la salida de cada nodo, de forma que la salida final obtenida es
+\[
+U_k = f(\beta_{0k} + \mathbf{X}^T \pmb{\beta}_k), \quad k = 1,\dots, s.
+\]
+
+Ejemplos de funciones de activación comunes son \textit{sigmoides} como la función logística o la tangente hiperbólica, y también la función \textit{signo} para problemas de clasificación binaria. En los últimos años se ha popularizado el uso de la función ReLU dada por $f(x) = x^+ = \max{\{0, x\}}$, cuya gráfica podemos ver en la Figura \ref{fig:relu}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.7\textwidth]{img/relu}
+  \caption{Gráfica de la función ReLU.}
+  \label{fig:relu}
+\end{figure}
+
 \subsection{Proceso de aprendizaje}
+
+
 
 \subsection{Perceptrón multicapa}
 
