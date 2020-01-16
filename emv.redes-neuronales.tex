@@ -150,6 +150,21 @@ afterskip=2ex]{section,subsection,subsubsection}
 \RedeclareSectionCommand[beforeskip=-4ex]{subsubsection}
 \addtokomafont{paragraph}{\normalfont\itshape}
 
+% Entornos
+
+\newtheoremstyle{teorema-style}  % Nombre del estilo
+{1\topsep}                                  % Espacio por encima
+{1\topsep}                                  % Espacio por debajo
+{\itshape}                                  % Fuente del cuerpo
+{0pt}                                  % Identación
+{\scshape}                      % Fuente para la cabecera
+{.}                                 % Puntuación tras la cabecera
+{5pt plus 1pt minus 1pt}                              % Espacio tras la cabecera
+{{\thmname{#1}\thmnumber{ #2}}\thmnote{ (#3)}}  % Especificación de la cabecera
+
+\theoremstyle{teorema-style}
+\newtheorem*{nth}{Teorema}
+
 %-------------------------------------------------------------------------------
 %	TÍTULO
 %-------------------------------------------------------------------------------
@@ -253,7 +268,7 @@ A pesar de la universalidad mostrada, este modelo no es adecuado para realizar u
 
 \subsection{Perceptrón de una capa}
 
-A principios de los años 60 se produjo una segunda ola de interés en las redes neuronales artificales, cuando el psicólogo Frank Rosenblatt desarrolló un sistema llamado \textit{perceptrón} \parencite{rosenblatt_perceptron_1958} para imitar el funcionamiento de una neurona. Se trata básicamente de una neurona de McCulloch-Pitts dotada de unos \textit{pesos} $\beta_i \in \mathbb{R}$ en cada conexión $i=1,2,\dots, r$. Los pesos positivos representan conexiones excitadoras, los pesos negativos conexiones inhibidoras, y la magnitud de los mismos muestra la fuerza de la conexión.
+A principios de los años 60 se produjo una segunda oleada de interés en las redes neuronales artificales, cuando el psicólogo Frank Rosenblatt desarrolló un sistema llamado \textit{perceptrón} \parencite{rosenblatt_perceptron_1958} para imitar el funcionamiento de una neurona. Se trata básicamente de una neurona de McCulloch-Pitts dotada de unos \textit{pesos} $\beta_i \in \mathbb{R}$ en cada conexión $i=1,2,\dots, r$. Los pesos positivos representan conexiones excitadoras, los pesos negativos conexiones inhibidoras y la magnitud de los mismos muestra la fuerza de la conexión.
 
 En este caso, se calcula la suma ponderada $U=\sum_j \beta_j X_j$, y la neurona se activa únicamente si $U\ge \theta$. Podemos convertir el umbral a $0$ introduciendo un elemento de \textit{sesgo} $\beta_0 = -\theta$ y una nueva pseudovariable $X_0 = 1$. De esta forma, como $U-\theta = \beta_0 + U$, podemos simplemente comparar $U=\sum_{j=0}^r \beta_j X_j$ con $0$. En la Figura \ref{fig:perceptron} podemos ver un esquema de un perceptrón descrito de esta forma.
 
@@ -287,7 +302,51 @@ Podemos considerar una red neuronal de perceptrones interconectados organizados 
 
 \subsection{Funciones de activación}
 
+El objetivo ahora es construir una red de una capa que dado un problema sea capaz de aprender unos pesos para resolverlo. No es difícil darse cuenta de que hasta ahora en cada perceptrón solo hemos computado una transformación afín de los datos de entrada: si $\mathbf{X}=(X_1, \dots, X_r)^T$ es un vector aleatorio de entradas y tenemos $s$ nodos de salida, en cada uno de ellos calculamos
+\[
+U_k = \beta_{0k} + \mathbf{X}^T \pmb\beta_k, \quad k = 1,\dots, s,
+\]
+donde $\beta_{0k}$ es la constante de \textit{sesgo} y $\pmb{\beta}_k = (\beta_{1k}, \dots, \beta_{rk})^T$ es un vector de pesos. De esta forma la red no podría aprender funciones que tengan un comportamiento no lineal, y es por esto que se introduce el concepto de \textit{función de activación}. Consideramos una función no lineal $f$ que se aplica a la salida de cada nodo, de forma que la salida final obtenida es
+\[
+U_k = f(\beta_{0k} + \mathbf{X}^T \pmb{\beta}_k), \quad k = 1,\dots, s.
+\]
+
+Ejemplos de funciones de activación comunes son \textit{sigmoides} como la función logística o la tangente hiperbólica, y también la función \textit{signo} para problemas de clasificación binaria. En los últimos años se ha popularizado el uso de la función ReLU dada por $f(x) = x^+ = \max{\{0, x\}}$, cuya gráfica podemos ver en la Figura \ref{fig:relu}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.7\textwidth]{img/relu}
+  \caption{Gráfica de la función ReLU.}
+  \label{fig:relu}
+\end{figure}
+
+En el contexto de problemas de \textit{clasificación multiclase} podemos considerar también una función de activación vectorial $\pmb f$ aplicada al vector de \textit{outputs} $\pmb U = (U_1, \dots, U_s)^T$. Por ejemplo, la función \textit{softmax} $f(\pmb x)_i = e^{x_i}/\sum_{k=1}^s e^{x_k}$ se puede entender como una distribución de probabilidad en $s$ valores, de forma que la salida en el nodo $k$-ésimo representa la probabilidad de pertenecer a la $k$-ésima clase.
+
 \subsection{Proceso de aprendizaje}
+
+La clave del funcionamiento de esta arquitectura es que se puede definir un proceso iterativo mediante el cual la red es capaz de \textit{aprender} los pesos óptimos para resolver un problema de clasificación binaria. Suponemos que tenemos una serie de ejemplos de entrada independientes $\pmb X_1, \dots, \pmb X_n$ extraídos de dos clases $\Pi_1$ y $\Pi_2$, y un único nodo de salida $Y$. Adoptando la notación $\pmb \beta \leftarrow (\beta_0, \pmb \beta^T)^T$ y $\pmb X \leftarrow (1, \pmb X^T)^T$, podemos reescribir $\beta_{0} + \mathbf{X}^T \pmb{\beta}$ como $\mathbf{X}^T \pmb{\beta}$. Para un estado concreto de la red (es decir, unos pesos fijos $\pmb \beta$), interpretaremos que un ejemplo $\pmb X$ pertenece a la primera clase si y solo si $\pmb X_h^T \pmb \beta \ge 0$. La estrategia es utilizar el conocimiento de la clase correcta para ir pasando los ejemplos por la red y predecir la clase a la que pertenece cada uno, intentando corregir los pesos si se detecta un error. Esta técnica se conoce como \textit{aprendizaje supervisado}.
+
+La regla para actualizar los pesos en cada iteración es la siguiente:
+\begin{enumerate}
+  \item Si la versión actual de los pesos $\pmb \beta_h$ consigue clasificar correctamente $\pmb X_h$, no cambiamos los pesos para la siguiente iteración.
+  \item Si con los pesos $\pmb \beta_h$ no obtenemos una clasificación correcta, hacemos
+\[
+  \pmb \beta_{h+1} = \pmb \beta_h + \eta \operatorname{signo}(\pmb X^T_h \pmb \beta_h) \pmb X_h.
+\]
+El parámetro $\eta > 0$ se conoce como \textit{learning rate}, y controla en qué proporción varían los pesos en cada iteración.
+\end{enumerate}
+
+Una solución del problema será un vector de pesos $\pmb \beta^\ast$ que clasifique correctamente todos los ejemplos, es decir, que todos los que estén a un lado del hiperplano $\pmb X_h^T \pmb \beta^\ast$ pertenezcan a la misma clase. Para esto es necesario de nuevo que los datos de entrada sean linealmente separables. La utilización de este método se justifica gracias al siguiente
+
+\begin{nth}[Convergencia del perceptrón]
+Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\pmb \beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
+\end{nth}
+
+Este algoritmo se puede extender a problemas de clasificación multiclase. Dada una \textit{función de error} diferenciable $\pmb F(\pmb x)$ que mida la diferencia entre la clase predicha y la clase real, se utiliza un algoritmo de \textit{gradiente descendente} que propaga hacia atrás el error en cada iteración y modifica los pesos de acuerdo a la regla
+\[
+\pmb \beta_{h+1} = \pmb \beta_h - \eta \nabla \pmb F_h(\pmb \beta_h).
+\]
+Notamos que perseguimos minimizar la función de error avanzando en la dirección y sentido de máxima pendiente: la que marca el gradiente cambiado de signo.
 
 \subsection{Perceptrón multicapa}
 
