@@ -220,7 +220,7 @@ afterskip=2ex]{section,subsection,subsubsection}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{img/neurona}
+  \includegraphics[width=.7\textwidth]{img/neurona}
   \caption{Estructura de una neurona. Basada en \parencite{dhp1080_neurona_2007}.}
   \label{fig:neurona}
 \end{figure}
@@ -234,7 +234,7 @@ La neurona de McCulloch-Pitts \parencite{mcculloch_logical_1943} es un modelo co
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.6\textwidth]{img/mcculloch-pitts}
+  \includegraphics[width=.7\textwidth]{img/mcculloch-pitts}
   \caption{Neurona de McCulloch-Pitts con $r$ entradas binarias $X_1,\dots,X_r$, una salida binaria $Y$ y un umbral $\theta$. Extraída de \parencite{izenman_modern_2008}.}
   \label{fig:mcculloch-pitts}
 \end{figure}
@@ -253,12 +253,12 @@ En este caso, se calcula la suma ponderada $U=\sum_j \beta_j X_j$, y la neurona 
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.6\textwidth]{img/perceptron}
+  \includegraphics[width=.7\textwidth]{img/perceptron}
   \caption{Perceptrón de $r$ entradas binarias con pesos $\{\beta_j\}$ y salida binaria $Y$. Incluye el término de sesgo $\beta_0$. Extraída de \parencite{izenman_modern_2008}.}
   \label{fig:perceptron}
 \end{figure}
 
-Si los datos de entrada son \textit{linealmente separables} (es decir, se pueden separar por un hiperplano), podemos interpretar un perceptrón como un algoritmo de \textit{clasificación binaria}, de forma que los puntos con $Y=0$ pertenecen a una clase distinta a la de aquellos con $Y=1$; la partición queda determinada por el hiperplano $U=\theta$. En la Figura \ref{fig:separable} puede verse una representación gráfica de datos separables y no separables linealmente.
+Si los datos de entrada son \textit{linealmente separables} (es decir, se pueden separar por un hiperplano), podemos interpretar un perceptrón como un algoritmo de \textit{clasificación binaria}, de forma que los puntos con $Y=0$ pertenecen a una clase distinta a la de aquellos con $Y=1$; la partición queda determinada por el hiperplano $U=\theta$. Sin embargo, si los datos de entradan no son linealmente separables, la función $Y$ asociada no es computable por un perceptrón (un ejemplo de este caso es la función XOR). En la Figura \ref{fig:separable} puede verse una representación gráfica de datos separables y no separables linealmente.
 
 \begin{figure}[h]
   \centering
@@ -299,11 +299,11 @@ Ejemplos de funciones de activación comunes son \textit{sigmoides} como la func
   \label{fig:relu}
 \end{figure}
 
-En el contexto de problemas de \textit{clasificación multiclase} podemos considerar también una función de activación vectorial $\pmb f$ aplicada al vector de \textit{outputs} $\pmb U = (U_1, \dots, U_s)^T$. Por ejemplo, la función \textit{softmax} $f(\pmb x)_i = e^{x_i}/\sum_{k=1}^s e^{x_k}$ se puede entender como una distribución de probabilidad en $s$ valores, de forma que la salida en el nodo $k$-ésimo representa la probabilidad de pertenecer a la $k$-ésima clase.
+En el contexto de problemas de \textit{clasificación multiclase} podemos considerar también una función de activación vectorial $\pmb f$ aplicada al vector de \textit{outputs} $\pmb U = (U_1, \dots, U_s)^T$. Por ejemplo, la función \textit{softmax} $\pmb f(\pmb x)_i = e^{x_i}/\sum_{k=1}^s e^{x_k}$ se puede entender como una distribución de probabilidad en $s$ valores, de forma que la salida en el nodo $k$-ésimo representa la probabilidad de pertenecer a la $k$-ésima clase.
 
 \subsection{Proceso de aprendizaje}
 
-La clave del funcionamiento de esta arquitectura es que se puede definir un proceso iterativo mediante el cual la red es capaz de \textit{aprender} los pesos óptimos para resolver un problema de clasificación binaria. Suponemos que tenemos una serie de ejemplos de entrada independientes $\pmb X_1, \dots, \pmb X_n$ extraídos de dos clases $\Pi_1$ y $\Pi_2$, y un único nodo de salida $Y$. Adoptando la notación $\pmb \beta \leftarrow (\beta_0, \pmb \beta^T)^T$ y $\pmb X \leftarrow (1, \pmb X^T)^T$, podemos reescribir $\beta_{0} + \mathbf{X}^T \pmb{\beta}$ como $\mathbf{X}^T \pmb{\beta}$. Para un estado concreto de la red (es decir, unos pesos fijos $\pmb \beta$), interpretaremos que un ejemplo $\pmb X$ pertenece a la primera clase si y solo si $\pmb X_h^T \pmb \beta \ge 0$. La estrategia es utilizar el conocimiento de la clase correcta para ir pasando los ejemplos por la red y predecir la clase a la que pertenece cada uno, intentando corregir los pesos si se detecta un error. Esta técnica se conoce como \textit{aprendizaje supervisado}.
+La clave del funcionamiento de esta arquitectura es que se puede definir un proceso iterativo mediante el cual la red es capaz de \textit{aprender} los pesos óptimos para resolver un problema de clasificación binaria. Suponemos que tenemos una serie de ejemplos de entrada independientes $\pmb X_1, \dots, \pmb X_n$ extraídos de dos clases $\Pi_1$ y $\Pi_2$, y un único nodo de salida. Incorporando el valor del sesgo al vector de pesos y adoptando la notación $\pmb \beta \leftarrow (\beta_0, \pmb \beta^T)^T$ y $\pmb X \leftarrow (1, \pmb X^T)^T$, podemos reescribir $\beta_{0} + \mathbf{X}^T \pmb{\beta}$ como $\mathbf{X}^T \pmb{\beta}$. Para un estado concreto de la red (es decir, unos pesos fijos $\pmb \beta$), interpretaremos que un ejemplo $\pmb X$ pertenece a la primera clase si y solo si $\pmb X_h^T \pmb \beta \ge 0$. La estrategia es utilizar el conocimiento de la clase correcta para ir pasando los ejemplos por la red y predecir la clase a la que pertenece cada uno, intentando corregir los pesos si se detecta un error. Esta técnica se conoce como \textit{aprendizaje supervisado}.
 
 La regla para actualizar los pesos en cada iteración es la siguiente:
 \begin{enumerate}
@@ -315,7 +315,7 @@ La regla para actualizar los pesos en cada iteración es la siguiente:
 El parámetro $\eta > 0$ se conoce como \textit{learning rate}, y controla en qué proporción varían los pesos en cada iteración.
 \end{enumerate}
 
-Una solución del problema será un vector de pesos $\pmb \beta^\ast$ que clasifique correctamente todos los ejemplos, es decir, que todos los que estén a un lado del hiperplano $\pmb X_h^T \pmb \beta^\ast$ pertenezcan a la misma clase. Para esto es necesario de nuevo que los datos de entrada sean linealmente separables. La utilización de este método se justifica gracias al siguiente
+Una solución del problema será un vector de pesos $\pmb \beta^\ast$ que clasifique correctamente todos los ejemplos, es decir, que todos los que estén a un lado del hiperplano $\pmb X_h^T \pmb \beta^\ast$ pertenezcan a la misma clase. Para esto es necesario que los datos de entrada sean linealmente separables. La utilización de este método se justifica gracias al siguiente resultado.
 
 \begin{nth}[Convergencia del perceptrón]
 Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\pmb \beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
@@ -329,6 +329,24 @@ Notamos que perseguimos minimizar la función de error avanzando en la direcció
 
 \subsection{Perceptrón multicapa}
 
+A mediados de los años 80 se acuñó finalmente el concepto de \textit{perceptrón multicapa}. Se trata de un modelo que pretende solventar las limitaciones del perceptrón distribuyendo los nodos en varias capas y aplicando transformaciones no lineales en el paso de una capa a la siguiente. Las capas intermedias se conocen como \textit{capas ocultas}. Podemos ver un esquema de este modelo en la Figura \ref{fig:multi}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/multicapa}
+  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta.}
+  \label{fig:multi}
+\end{figure}
+
+En general, una red con $L$ capas ocultas se conoce como una red de $L+1$ capas (de nuevo, la capa de entrada no cuenta). Decimos que una capa está \textit{totalmente conectada} cuando todos sus nodos reciben como entrada activaciones de todas las neuronas de la capa anterior, y \textit{parcialmente conectada} en otro caso.
+
+%%Faltan fórmulas de MLP con 1 capa. Comentar que toda la red se puede ver como una función.
+
+Una vez que tenemos unos pesos \textit{suficientemente buenos}, podemos utilizar la red entrenada para clasificar nuevos ejemplos no etiquetados que no ha visto antes, aspirando así a resolver el problema de clasificación en todo el espacio de entrada. La bondad o \textit{precisión} de la red se medirá, dado un conjunto de \textit{test} con nuevos ejemplo, contando el número de de ellos que ha sido capaz de clasificar correctamente.
+
+También podemos abordar el problema de regresión lineal mediante redes neuronales. En particular, si consideramos una red con un único nodo de salida y que utilice únicamente funciones de activación lineal, podremos entrenarla para que aprenda los pesos (coeficientes) de la función lineal que mejor aproxima los datos de entrada. Si utilizamos como función de error el error cuadrático, estaríamos ante una regresión por mínimos cuadrados.
+
+Un punto en contra de los modelos basados en redes neuronales es que sufren de \textit{pérdida de interpretabilidad} frente a modelos clásicos. A cambio, las redes neuronales consiguen resolver problemas mucho más complejos de forma automática, en parte gracias a la gran capacidad de cómputo de la que disponen los ordenadores hoy en día.
 
 \section{Relación con la estadística}
 
