@@ -263,6 +263,26 @@ Podemos considerar una red neuronal de perceptrones interconectados organizados 
 
 \subsection{Perceptrón multicapa}
 
+
+\section{Relación con la estadística}
+
+Una de las interpretaciones estadísticas más obvias del Perceptrón multicapa, es que este proporciona una regresión no lineal estimada optimizando en cierta medida los datos de entrenamiento. Si estos últimos no tienen ruido, entonces el ejercicio es de aproximación de funciones. Hay muchos desarrollos sistemáticos recientes en regresión, y se deben enfrentar al menos tres preguntas importantes:
+\begin{itemize}
+\item ¿Cómo se comparan las redes neuronales y las prescripciones estadísticas en términos de rendimiento?
+\item ¿Como de buenas son las diversas arquitecturas a la hora de aproximar miembros de clases particulares de funciones de regresión?
+\item ¿Cuáles son los métodos numéricos más confiables y prácticos para la estimación de parámetros?
+\end{itemize}
+
+El Perceptrón de una capa y el Perceptrón multicapa definen dos de los desarrollos estadísticos: la regresión de búsqueda-proyección y los modelos aditivos generalizados.
+
+El problema de encontrar pesos óptimos para un asociador lineal y para un
+El conjunto de entrenamiento dado $T$ se conoce en estadística como regresión lineal múltiple. Estamos
+buscando constantes $w_0, w_1, \cdots w_n$ tal que los valores y se puedan calcular
+de los valores $x$:
+$$y_i = w_0 + w_1 x_1^i + w_2 x_2^i + \cdots + w_n x_n^i + \epsilon_i $$
+donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema se puede resolver utilizando métodos algebraicos. (Introducir o no la resolucion algebraica???? Pag 4 de Statistics and NN )
+
+
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA
 %-------------------------------------------------------------------------------
