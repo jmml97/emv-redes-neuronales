@@ -321,9 +321,9 @@ Una solución del problema será un vector de pesos $\pmb \beta^\ast$ que clasif
 Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\pmb \beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
 \end{nth}
 
-Este algoritmo se puede extender a problemas de clasificación multiclase. Dada una \textit{función de error} diferenciable $\pmb F(\pmb x)$ que mida la diferencia entre la clase predicha y la clase real, se utiliza un algoritmo de \textit{gradiente descendente} que propaga hacia atrás el error en cada iteración y modifica los pesos de acuerdo a la regla
+Este algoritmo se puede extender a problemas de clasificación multiclase. Dada una \textit{función de error} diferenciable $F(\pmb x)$ que mida la diferencia entre la clase predicha y la clase real, se utiliza un algoritmo de \textit{gradiente descendente} que propaga hacia atrás el error en cada iteración y modifica los pesos de acuerdo a la regla
 \[
-\pmb \beta_{h+1} = \pmb \beta_h - \eta \nabla \pmb F_h(\pmb \beta_h).
+\pmb \beta_{h+1} = \pmb \beta_h - \eta \nabla F_h(\pmb \beta_h).
 \]
 Notamos que perseguimos minimizar la función de error avanzando en la dirección y sentido de máxima pendiente: la que marca el gradiente cambiado de signo.
 
@@ -340,7 +340,7 @@ A mediados de los años 80 se acuñó finalmente el concepto de \textit{perceptr
 
 En general, una red con $L$ capas ocultas se conoce como una red de $L+1$ capas (de nuevo, la capa de entrada no cuenta). Decimos que una capa está \textit{totalmente conectada} cuando todos sus nodos reciben como entrada activaciones de todas las neuronas de la capa anterior, y \textit{parcialmente conectada} en otro caso.
 
-%%Faltan fórmulas de MLP con 1 capa. Comentar que toda la red se puede ver como una función.
+Para el proceso de aprendizaje de la red, se utiliza de nuevo la técnica de gradiente descendente, pero esta vez se va propagando hacia atrás el error en todas las capas, alterando todos los pesos en el proceso de forma iterativa.
 
 Una vez que tenemos unos pesos \textit{suficientemente buenos}, podemos utilizar la red entrenada para clasificar nuevos ejemplos no etiquetados que no ha visto antes, aspirando así a resolver el problema de clasificación en todo el espacio de entrada. La bondad o \textit{precisión} de la red se medirá, dado un conjunto de \textit{test} con nuevos ejemplo, contando el número de de ellos que ha sido capaz de clasificar correctamente.
 
