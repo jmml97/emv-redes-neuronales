@@ -315,7 +315,7 @@ La regla para actualizar los pesos en cada iteración es la siguiente:
 El parámetro $\eta > 0$ se conoce como \textit{learning rate}, y controla en qué proporción varían los pesos en cada iteración.
 \end{enumerate}
 
-Una solución del problema será un vector de pesos $\pmb \beta^\ast$ que clasifique correctamente todos los ejemplos, es decir, que todos los que estén a un mismo lado del hiperplano $\pmb X_h^T \pmb \beta^\ast$ pertenezcan a la misma clase. Para esto es necesario que los datos de entrada sean linealmente separables. La utilización de este método se justifica gracias al siguiente resultado.
+Una solución del problema será un vector de pesos $\pmb \beta^\ast$ que clasifique correctamente todos los ejemplos, es decir, que todos los que estén a un mismo lado de cada hiperplano $\pmb X_h^T \pmb \beta^\ast$ pertenezcan a la misma clase. Para esto es necesario que los datos de entrada sean linealmente separables. La utilización de este método se justifica gracias al siguiente resultado.
 
 \begin{nth}[Convergencia del perceptrón]
 Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\pmb \beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
@@ -342,7 +342,7 @@ En general, una red con $L$ capas ocultas se conoce como una red de $L+1$ capas 
 
 Para el proceso de aprendizaje de la red, se utiliza de nuevo la técnica de gradiente descendente, pero esta vez se va propagando hacia atrás el error en todas las capas, alterando todos los pesos en el proceso de forma iterativa.
 
-Una vez que tenemos unos pesos \textit{suficientemente buenos}, podemos utilizar la red entrenada para clasificar nuevos ejemplos no etiquetados que no ha visto antes, aspirando así a resolver el problema de clasificación en todo el espacio de entrada. La bondad o \textit{precisión} de la red se medirá, dado un conjunto de \textit{test} con nuevos ejemplo, contando el número de de ellos que ha sido capaz de clasificar correctamente.
+Una vez que tenemos unos pesos \textit{suficientemente buenos}, podemos utilizar la red entrenada para clasificar nuevos ejemplos no etiquetados que no ha visto antes, aspirando así a resolver el problema de clasificación en todo el espacio de entrada. La bondad o \textit{precisión} de la red se medirá, dado un conjunto de \textit{test} con nuevos ejemplos, contando el número de de ellos que ha sido capaz de clasificar correctamente.
 
 También podemos abordar el problema de regresión lineal mediante redes neuronales. En particular, si consideramos una red con un único nodo de salida y que utilice únicamente funciones de activación lineal, podremos entrenarla para que aprenda los pesos (coeficientes) de la función lineal que mejor aproxima los datos de entrada. Si utilizamos como función de error el error cuadrático, estaríamos ante una regresión por mínimos cuadrados.
 
