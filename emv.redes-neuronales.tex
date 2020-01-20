@@ -218,34 +218,43 @@ afterskip=2ex]{section,subsection,subsubsection}
 
 \section{Introducción}
 
-El objetivo de este trabajo es el estudio de los fundamentos estadísticos de las redes neuronales artificiales.
+El objetivo de este trabajo es el estudio del funcionamiento y de los fundamentos estadísticos de las redes neuronales artificiales.
+Para ello... (comentar estructura del trabajo brevemente).
 
-La ciencia cognitiva estudia la mente y sus procesos. 
+Las cuestiones sobre la mente y el pensamiento humanos han estado presentes en el pensamiento filosófico desde sus inicios.
+Posteriormente, el funcionamiento del cerebro y de la percepción humana han sido asuntos por los que la ciencia se ha interesado.
+Actualmente es un campo interdisciplinario, la ciencia cognitiva, el que se encarga del estudio científico de la mente y sus procesos.
 En concreto, se centra en la forma en la que el sistema nervioso procesa la información y cómo se produce el aprendizaje.
-Trata además de responder cuestiones sobre la mente y la inteligencia.
+Trata además de responder diversas cuestiones sobre la mente y la inteligencia.
+Para ello la ciencia cognitiva se sirve del conocimiento aportado por numerosos campos: psicología, antropología, neurociencia, filosofía, entre otros.
 
 Uno de los modelos sobre cómo funcionan la mente y el cerebro es el conexionismo, cuyo principio básico es que los fenómenos mentales pueden describirse mediante redes compuestas por unidades sencillas (neuronas) e interconectadas entre sí.
-
-Inicialmente las redes neuronales se diseñaron para imitar la actividad cerebral.
+En este modelo se han basado las redes neuronales artificales desde las primeras propuestas en la década de 1940.
+Inicialmente las redes neuronales se diseñaron con el fin último de imitar la actividad cerebral.
 Ahora se utilizan de forma más abstracta como una red de elementos de computación no lineales hiperconectados.
 
-Para entender cómo funciona una red neuronal artificial vamos a describir primero cómo funcionan las redes neuronales biológicas.
-La corteza cerebral está formada por neuronas, células que son las unidades básicas que componen el sistema nervioso.
-Los humanos poseen aproximadamente diez mil millones de neuronas.
-
-En la estructura de una neurona, que podemos observar en la figura \ref{fig:neurona} es posible distinguir dos partes diferenciadas: el cuerpo celular y el axón.
-En el cuerpo celular se encuentran las dendritas, que actúan como receptores de <<entrada>> de señales a la neurona.
-El axón tiene forma alargada y actúa como emisor de <<salida>> de señales de la neurona.
-
-Las neuronas se envían señales entre sí mediante procesos electroquímicos en los que se transmiten unas sustancias denominadas neurotransmisores.
-
-\begin{figure}[h]
+\begin{figure}[b]
   \centering
   \includegraphics[width=0.7\textwidth]{img/neurona}
   \caption{Estructura de una neurona. Basada en \parencite{dhp1080_neurona_2007}.}
   \label{fig:neurona}
 \end{figure}
 
+Para entender cómo funciona una red neuronal artificial es útil comprender primero cómo funcionan las redes neuronales biológicas.
+La corteza cerebral está formada por neuronas, células que son las unidades básicas que componen el sistema nervioso.
+Los humanos poseen aproximadamente diez mil millones de neuronas.
+En la estructura de una neurona, que podemos observar en la figura \ref{fig:neurona} es posible distinguir dos partes diferenciadas: el cuerpo celular y el axón.
+En el cuerpo celular se encuentran las dendritas, que actúan como receptores de <<entrada>> de señales a la neurona.
+El axón tiene forma alargada y actúa como emisor de <<salida>> de señales de la neurona.
+
+Las neuronas se envían señales entre sí mediante un proceso electroquímico denominado sinapsis en el que se transmiten unas sustancias denominadas neurotransmisores.
+El cerebro <<aprende>> cambiando la intensidad de las conexiones entre neuronas o creando o destruyendo dichas conexiones.
+En el proceso de comunicación entre dos neuronas distinguimos entre la neurona \textit{presinóptica}, la emisora, y la nuerona \textit{postsinóptica}, la receptora.
+Para el envío de una señal la neurona presinóptica envía neurotransmisores a través del axón a un conjunto de moléculas receptoras en la neurona postsinóptica.
+Este envío suele ocurrir en periodos de tiempo de duración aleatoria, pero la ratio de envío depende de muchos factores, entre ellos, la intensidad de la señal de <<entrada>> a la neurona presinóptica.
+Esta intensidad se deriva de la proporción de dos tipos de sinapsis que recibe la neurona: las sinapsis inhibidoras, que previenen que la neurona envíe información, y las sinapsis excitadoras, que lo facilitan.
+
+Veremos a continuación que los procesos diseñados para las redes neuronales artificales siguen un esquema prácticamente idéntico al que acabamos de describir.
 
 \section{Estructura y funcionamiento de las redes neuronales}
 
