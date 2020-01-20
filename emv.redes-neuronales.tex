@@ -392,6 +392,7 @@ El conjunto de entrenamiento dado $T$ se conoce en estadística como regresión 
 buscando constantes $w_0, w_1, \cdots w_n$ tal que los valores y se puedan calcular
 de los valores $x$:
 $$y_i = w_0 + w_1 x_1^i + w_2 x_2^i + \cdots + w_n x_n^i + \epsilon_i $$
+
 donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema se puede resolver utilizando métodos algebraicos.
 
 \subsection{Redes convolucionales}%
@@ -416,6 +417,117 @@ En general, las primeras capas de una red convolucional son las encargadas de ex
 
 Este tipo de redes son muy útiles gracias a la multitud de propiedades que tiene la operación de convolución (conmutatividad, asociatividad, distributividad, ...), y a que sería inviable entrenar una red completamente conectada que trabajase con imágenes, pues el número de parámetros sería demasiado grande.
 
+\section{Título pendiente}
+
+A la hora de diseñar una red neuronal hay que intentar evitar dos principales problemas:
+\begin{itemize}
+
+\item Overfitting. Uno de los problemas que ocurren durante el entrenamiento de la red neuronal se llama sobreajuste. El error en el conjunto de entrenamiento se lleva a un valor muy pequeño, pero cuando se presentan nuevos datos a la red, el error es grande. La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/overfitting}
+  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
+  \label{fig:multi}
+\end{figure}
+
+\item Pocos datos en el conjunto de entrenamiento.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/learning-rate}
+  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
+  \label{fig:multi}
+\end{figure}
+
+\end{itemize}
+
+\section{Teorema de aproximación universal}
+
+En la teoría matemática de las redes neuronales artificiales, el teorema de aproximación universal establece que una red feed-forward con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo suposiciones leves sobre la función de activación. El teorema establece que las redes neuronales simples pueden representar una amplia variedad de funciones interesantes cuando se les dan parámetros apropiados; sin embargo, no toca la capacidad de aprendizaje algorítmico de esos parámetros.
+
+Aunque las redes feed-forward con una sola capa oculta son aproximadores universales, el ancho de tales redes tiene que ser exponencialmente grande. En 2017 Lu et al. Probaron el Teorema de aproximación universal para redes neuronales profundas con ancho acotado. En particular, demostraron que las redes de ancho $n + 4$ con funciones de activación ReLU pueden aproximarse cualquier función integrable de Lebesgue en el espacio de entrada n-dimensional con respecto a la distancia $L ^ {1}$ si la profundidad de la red puede crecer.
+
+Matemáticamente la expresión del teorema se puede expresar en dos versiones: la aplicada a un ancho no acotado y al ancho acotado.
+\textbf{Caso ancho no acotado:}
+
+Sea $\varphi:\mathbb{R} \rightarrow \mathbb{R}$ una función no constante, acotada y continua, llamada la función de activación e $I_m$ el hipercubo de la unidad de dimensión $m$ , $[0,1]^m$. El espacio de funciones continuas de valor real en $I_m$ se denota como $C(I_m)$. Entonces, dado un $\epsilon > 0$ y una función $f \in C(I_m)$, existe un entero $N$, constantes reales $v_i , b_i \in \mathbb{R}$ y vectores reales $w_i \in \mathbb{R}^m$ para $i =1 \cdots N$,  tales que podemos definir:
+$$ F (x) = \sum_{{i = 1}}^{{N}} v_{i} \varphi \left (w_ {i} ^ {T} x + b_ {i} \right) $$
+Como una realización aproximada de la función $f$, que es:
+$$|F(x)-f(x)| < \epsilon \ \ \forall x \in I_m$$
+ En otras palabras, las funciones de la forma $F(x)$ son densas en $C(I_m)$.
+Esto funciona también , tomando cualquier subconjunto compacto de $\mathbb{R}^m$ , en lugar de $I_m$.
+
+\textbf{Caso ancho acotado:}
+
+Para cualquier función Lebesgue-integrable $f: \mathbb{R}^n \rightarrow \mathbb{R}$ y cualquier $\epsilon >0$, existe una red completamente conectada con activación ReLU A con ancho $d_m \leq n+4$, tal que la función $F_A$ representada por esta red satisface :
+
+$${\displaystyle \int_{\mathbb{R}^{n}}\left|f(x)-F_{A}(x)\right|\mathrm {d} x<\epsilon } $$
+
+\section{Clasificación de redes neuronales}
+Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen:
+
+\begin{itemize}
+\item \textbf{Aprendizaje supervisado. } Junto con el conjunto de entrada de la
+  red, se utiliza un conjunto de salida deseada. El trabajo de la red consiste
+  en reproducir la salida deseada para cada entrada. Para conseguirlo trata de
+  minimizar el cuadrado de la distancia entre la salida de la red y la salida
+  esperada. Este tipo de aprendizaje se suele utilizar en reconocimiento de
+  patrones, clasificación y regresión.
+\item \textbf{Aprendizaje no supervisado. } En este tipo de entrenamiento, los
+  datos de entrada se dan junto con una función de coste (una función de los
+  datos y la salida de la red). El objetivo de la red es minimizar dicha función
+  de coste. Estas redes se utilizan generalmente para resolver problemas de
+  estimación y clustering.
+\item \textbf{Aprendizaje por refuerzo. } El objetivo de este tipo de
+  entrenamiento es hacer que la red adapte una politica de acción que minimice
+  un coste (long-term) No me queda claro.
+\end{itemize}
+
+\subsection{Autoencoders}
+
+Un autoencoder es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la
+salida, tiene una capa interna que constituye el <<código>> con
+el que queremos representar la entrada. Se encuentra dividida en dos partes
+principales:
+\begin{itemize}
+  \item \textbf{Codificador. }Conjunto de capas que transforman la entrada al
+    <<código>>.
+  \item \textbf{Decodificador. }Conjunto de capas que transforman el
+    <<código>> a la entrada original
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/autoencoder}
+  \caption{Esquema de un autoencoder}
+  \label{fig:autoencoder}
+\end{figure}
+
+La aplicación mas directa de los \textit{autoencoders} es la reducción de
+dimensionalidad para aprendizaje de características. Al forzar a la red a
+codificar la entrada en un espacio de menos dimensión, la obligamos a abstraer
+de ellas ciertas características que, además, nos permiten reconstruir la
+imagen.
+
+En el caso mas simple donde solo existe una capa oculta, la fase de codificación
+toma $x \in \mathbb{R}^p$ y devuelve $h \in \mathbb{R}^d$ con $d < p$ de la
+forma:
+\[
+h = \sigma (Wx+b)
+\]
+Donde $\sigma$ es una función de activación (sigmoide o ReLu), $W$ es una matriz
+de pesos y $b$ es un vector de sesgo. Los pesos y el sesgo se suelen inicializar
+de forma aleatoria y se van actualizando mediante \textit{backpropagation}.
+Despues el codificador reconstruye $x'$ de la misma dimensión que $x$.
+\[
+x' = \sigma' (W'h + b')
+\]
+Donde $\sigma', W'$ y $b'$ no estan relacionadas con las del codificador. El autoencoder encontes busca minimizar el error cuadrático, normalmente
+referido como pérdida.
+\[
+\mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2
+\]
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA
 %-------------------------------------------------------------------------------
