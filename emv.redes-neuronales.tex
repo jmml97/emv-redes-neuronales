@@ -243,15 +243,15 @@ Ahora se utilizan de forma más abstracta como una red de elementos de computaci
 Para entender cómo funciona una red neuronal artificial es útil comprender primero cómo funcionan las redes neuronales biológicas.
 La corteza cerebral está formada por neuronas, células que son las unidades básicas que componen el sistema nervioso.
 Los humanos poseen aproximadamente diez mil millones de neuronas.
-En la estructura de una neurona, que podemos observar en la figura \ref{fig:neurona} es posible distinguir dos partes diferenciadas: el cuerpo celular y el axón.
+En la estructura de una neurona, que podemos observar en la Figura \ref{fig:neurona}, es posible distinguir dos partes diferenciadas: el cuerpo celular y el axón.
 En el cuerpo celular se encuentran las dendritas, que actúan como receptores de <<entrada>> de señales a la neurona.
 El axón tiene forma alargada y actúa como emisor de <<salida>> de señales de la neurona.
 
 Las neuronas se envían señales entre sí mediante un proceso electroquímico denominado sinapsis en el que se transmiten unas sustancias denominadas neurotransmisores.
 El cerebro <<aprende>> cambiando la intensidad de las conexiones entre neuronas o creando o destruyendo dichas conexiones.
-En el proceso de comunicación entre dos neuronas distinguimos entre la neurona \textit{presinóptica}, la emisora, y la nuerona \textit{postsinóptica}, la receptora.
-Para el envío de una señal la neurona presinóptica envía neurotransmisores a través del axón a un conjunto de moléculas receptoras en la neurona postsinóptica.
-Este envío suele ocurrir en periodos de tiempo de duración aleatoria, pero la ratio de envío depende de muchos factores, entre ellos, la intensidad de la señal de <<entrada>> a la neurona presinóptica.
+En el proceso de comunicación entre dos neuronas distinguimos entre la neurona \textit{presináptica}, la emisora, y la neurona \textit{postsináptica}, la receptora.
+Para el envío de una señal la neurona presináptica envía neurotransmisores a través del axón a un conjunto de moléculas receptoras en la neurona postsináptica.
+Este envío suele ocurrir en periodos de tiempo de duración aleatoria, pero la ratio de envío depende de muchos factores, entre ellos la intensidad de la señal de <<entrada>> a la neurona presináptica.
 Esta intensidad se deriva de la proporción de dos tipos de sinapsis que recibe la neurona: las sinapsis inhibidoras, que previenen que la neurona envíe información, y las sinapsis excitadoras, que lo facilitan.
 
 Veremos a continuación que los procesos diseñados para las redes neuronales artificales siguen un esquema prácticamente idéntico al que acabamos de describir.
@@ -260,7 +260,7 @@ Veremos a continuación que los procesos diseñados para las redes neuronales ar
 
 \subsection{La neurona de McCulloch-Pitts}
 
-La neurona de McCulloch-Pitts \parencite{mcculloch_logical_1943} es un modelo computacional que consiste en múltiples entradas (imitando las dendritas) y una sola salida (imitando el axón). Las entradas se denotan por $X_1,X_2,\dots, X_r$ y la salida por $Y$, donde cada una puede tomar el valor $0$ (apagado) o $1$ (activado). Cada conexión puede ser de tipo excitador o inhibidor, y si alguna de ellas es inhibidora y transmite el valor $1$, la salida es directamente $0$. Si no hay conexiones inhibidoras activadas se suman las entradas para producir un valor de \textit{excitación total} $U = \sum_{j} X_j$, y se compara con un valor de \textit{umbral} $\theta$: si $U \ge \theta$ la salida es $Y=1$, en otro caso la salida es $Y=0$. Notamos que si $\theta > r$ la salida siempre será $0$, y si $\theta = 0$ y no hay conexiones inhibidoras activadas, la salida será siempre $1$. Podemos ver una ilustración de esta neurona en la Figura \ref{fig:mcculloch-pitts}.
+La neurona de McCulloch-Pitts \parencite{mcculloch_logical_1943} es un modelo computacional que consta de múltiples entradas a una unidad de procesamiento (imitando las dendritas) y una sola salida (imitando el axón). Las entradas se denotan por $X_1,X_2,\dots, X_r$ y la salida por $Y$, donde cada una puede tomar el valor $0$ (apagado) o $1$ (activado). Cada conexión puede ser de tipo excitador o inhibidor, y si alguna de ellas es inhibidora y transmite el valor $1$, la salida es directamente $0$. Si no hay conexiones inhibidoras activadas se suman las entradas para producir un valor de \textit{excitación total} $U = \sum_{j} X_j$, y se compara con un valor de \textit{umbral} $\theta$: si $U \ge \theta$ la salida es $Y=1$, en otro caso la salida es $Y=0$. Notamos que si $\theta > r$ la salida siempre será $0$, y si $\theta = 0$ y no hay conexiones inhibidoras activadas, la salida será siempre $1$. Podemos ver una ilustración de esta neurona en la Figura \ref{fig:mcculloch-pitts}.
 
 \begin{figure}[h]
   \centering
