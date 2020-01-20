@@ -376,17 +376,11 @@ Una vez que tenemos unos pesos \textit{suficientemente buenos}, podemos utilizar
 
 También podemos abordar el problema de regresión lineal mediante redes neuronales. En particular, si consideramos una red con un único nodo de salida y que utilice únicamente funciones de activación lineal, podremos entrenarla para que aprenda los pesos (coeficientes) de la función lineal que mejor aproxima los datos de entrada. Si utilizamos como función de error el error cuadrático, estaríamos ante una regresión por mínimos cuadrados.
 
-Un punto en contra de los modelos basados en redes neuronales es que sufren de \textit{pérdida de interpretabilidad} frente a modelos clásicos. A cambio, las redes neuronales consiguen resolver problemas mucho más complejos de forma automática, en parte gracias a la gran capacidad de cómputo de la que disponen los ordenadores hoy en día.
-
-\section{Relación con la estadística}
-
-Una de las interpretaciones estadísticas más obvias del Perceptrón multicapa, es que este proporciona una regresión no lineal estimada optimizando en cierta medida los datos de entrenamiento. Si estos últimos no tienen ruido, entonces el ejercicio es de aproximación de funciones. Hay muchos desarrollos sistemáticos recientes en regresión, y se deben enfrentar al menos tres preguntas importantes:
+También se puede afrontar el problema de regresión ni lineal estimada  optimizando en cierta medida los datos de entrenamiento. Si estos últimos no tienen ruido, entonces el ejercicio es de aproximación de funciones. Hay muchos desarrollos sistemáticos recientes en regresión, y se deben enfrentar al menos dos preguntas importantes:
 \begin{itemize}
 \item ¿Cómo se comparan las redes neuronales y las prescripciones estadísticas en términos de rendimiento?
 \item ¿Como de buenas son las diversas arquitecturas a la hora de aproximar miembros de clases particulares de funciones de regresión?
-\item ¿Cuáles son los métodos numéricos más confiables y prácticos para la estimación de parámetros?
 \end{itemize}
-
 El Perceptrón de una capa y el Perceptrón multicapa definen dos de los desarrollos estadísticos: la regresión de búsqueda-proyección y los modelos aditivos generalizados.
 
 El problema de encontrar pesos óptimos para un asociador lineal y para un
@@ -394,11 +388,57 @@ El conjunto de entrenamiento dado $T$ se conoce en estadística como regresión 
 buscando constantes $w_0, w_1, \cdots w_n$ tal que los valores y se puedan calcular
 de los valores $x$:
 $$y_i = w_0 + w_1 x_1^i + w_2 x_2^i + \cdots + w_n x_n^i + \epsilon_i $$
-donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos
-incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas
-deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema
-se puede resolver utilizando métodos algebraicos. (Introducir o no la resolucion
-algebraica???? Pag 4 de Statistics and NN )
+
+donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema se puede resolver utilizando métodos algebraicos.
+
+Un punto en contra de los modelos basados en redes neuronales es que sufren de \textit{pérdida de interpretabilidad} frente a modelos clásicos. A cambio, las redes neuronales consiguen resolver problemas mucho más complejos de forma automática, en parte gracias a la gran capacidad de cómputo de la que disponen los ordenadores hoy en día.
+
+\section{Título pendiente}
+
+A la hora de diseñar una red neuronal hay que intentar evitar dos principales problemas:
+\begin{itemize}
+
+\item Overfitting. Uno de los problemas que ocurren durante el entrenamiento de la red neuronal se llama sobreajuste. El error en el conjunto de entrenamiento se lleva a un valor muy pequeño, pero cuando se presentan nuevos datos a la red, el error es grande. La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/overfitting}
+  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
+  \label{fig:multi}
+\end{figure}
+
+\item Pocos datos en el conjunto de entrenamiento. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/learning-rate}
+  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
+  \label{fig:multi}
+\end{figure}
+
+\end{itemize}
+
+\section{Teorema de aproximación universal}
+
+En la teoría matemática de las redes neuronales artificiales, el teorema de aproximación universal establece que una red feed-forward con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo suposiciones leves sobre la función de activación. El teorema establece que las redes neuronales simples pueden representar una amplia variedad de funciones interesantes cuando se les dan parámetros apropiados; sin embargo, no toca la capacidad de aprendizaje algorítmico de esos parámetros.
+
+Aunque las redes feed-forward con una sola capa oculta son aproximadores universales, el ancho de tales redes tiene que ser exponencialmente grande. En 2017 Lu et al. Probaron el Teorema de aproximación universal para redes neuronales profundas con ancho acotado. En particular, demostraron que las redes de ancho $n + 4$ con funciones de activación ReLU pueden aproximarse cualquier función integrable de Lebesgue en el espacio de entrada n-dimensional con respecto a la distancia $L ^ {1}$ si la profundidad de la red puede crecer.
+
+Matemáticamente la expresión del teorema se puede expresar en dos versiones: la aplicada a un ancho no acotado y al ancho acotado.
+\textbf{Caso ancho no acotado:}
+
+Sea $\varphi:\mathbb{R} \rightarrow \mathbb{R}$ una función no constante, acotada y continua, llamada la función de activación e $I_m$ el hipercubo de la unidad de dimensión $m$ , $[0,1]^m$. El espacio de funciones continuas de valor real en $I_m$ se denota como $C(I_m)$. Entonces, dado un $\epsilon > 0$ y una función $f \in C(I_m)$, existe un entero $N$, constantes reales $v_i , b_i \in \mathbb{R}$ y vectores reales $w_i \in \mathbb{R}^m$ para $i =1 \cdots N$,  tales que podemos definir:
+$$ F (x) = \sum_{{i = 1}}^{{N}} v_{i} \varphi \left (w_ {i} ^ {T} x + b_ {i} \right) $$
+Como una realización aproximada de la función $f$, que es:
+$$|F(x)-f(x)| < \epsilon \ \ \forall x \in I_m$$
+ En otras palabras, las funciones de la forma $F(x)$ son densas en $C(I_m)$.
+Esto funciona también , tomando cualquier subconjunto compacto de $\mathbb{R}^m$ , en lugar de $I_m$.
+
+\textbf{Caso ancho acotado:}
+
+Para cualquier función Lebesgue-integrable $f: \mathbb{R}^n \rightarrow \mathbb{R}$ y cualquier $\epsilon >0$, existe una red completamente conectada con activación ReLU A con ancho $d_m \leq n+4$, tal que la función $F_A$ representada por esta red satisface :
+
+$${\displaystyle \int_{\mathbb{R}^{n}}\left|f(x)-F_{A}(x)\right|\mathrm {d} x<\epsilon } $$
 
 \section{Clasificación de redes neuronales}
 Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen:
