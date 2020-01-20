@@ -251,7 +251,7 @@ Las neuronas se envían señales entre sí mediante un proceso electroquímico d
 El cerebro <<aprende>> cambiando la intensidad de las conexiones entre neuronas o creando o destruyendo dichas conexiones.
 En el proceso de comunicación entre dos neuronas distinguimos entre la neurona \textit{presináptica}, la emisora, y la neurona \textit{postsináptica}, la receptora.
 Para el envío de una señal la neurona presináptica envía neurotransmisores a través del axón a un conjunto de moléculas receptoras en la neurona postsináptica.
-Este envío suele ocurrir en periodos de tiempo de duración aleatoria, pero la ratio de envío depende de muchos factores, entre ellos la intensidad de la señal de <<entrada>> a la neurona presináptica.
+Este envío suele ocurrir en periodos de tiempo de duración aleatoria, pero la tasa de envío depende de muchos factores, entre ellos la intensidad de la señal de <<entrada>> a la neurona presináptica.
 Esta intensidad se deriva de la proporción de dos tipos de sinapsis que recibe la neurona: las sinapsis inhibidoras, que previenen que la neurona envíe información, y las sinapsis excitadoras, que lo facilitan.
 
 Veremos a continuación que los procesos diseñados para las redes neuronales artificales siguen un esquema prácticamente idéntico al que acabamos de describir.
@@ -378,6 +378,22 @@ También podemos abordar el problema de regresión lineal mediante redes neurona
 
 Un punto en contra de los modelos basados en redes neuronales es que sufren de \textit{pérdida de interpretabilidad} frente a modelos clásicos. A cambio, las redes neuronales consiguen resolver problemas mucho más complejos de forma automática, en parte gracias a la gran capacidad de cómputo de la que disponen los ordenadores hoy en día.
 
+También se puede afrontar el problema de regresión ni lineal estimada  optimizando en cierta medida los datos de entrenamiento. Si estos últimos no tienen ruido, entonces el ejercicio es de aproximación de funciones. Hay muchos desarrollos sistemáticos recientes en regresión, y se deben enfrentar al menos dos preguntas importantes:
+
+\begin{itemize}
+\item ¿Cómo se comparan las redes neuronales y las prescripciones estadísticas en términos de rendimiento?
+\item ¿Como de buenas son las diversas arquitecturas a la hora de aproximar miembros de clases particulares de funciones de regresión?
+\end{itemize}
+
+El Perceptrón de una capa y el Perceptrón multicapa definen dos de los desarrollos estadísticos: la regresión de búsqueda-proyección y los modelos aditivos generalizados.
+
+El problema de encontrar pesos óptimos para un asociador lineal y para un
+El conjunto de entrenamiento dado $T$ se conoce en estadística como regresión lineal múltiple. Estamos
+buscando constantes $w_0, w_1, \cdots w_n$ tal que los valores y se puedan calcular
+de los valores $x$:
+$$y_i = w_0 + w_1 x_1^i + w_2 x_2^i + \cdots + w_n x_n^i + \epsilon_i $$
+donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema se puede resolver utilizando métodos algebraicos.
+
 \subsection{Redes convolucionales}%
 \label{sub:redes_convolucionales}
 
@@ -399,24 +415,6 @@ Dicho esto, una capa de una red convolucional consiste en una serie de filtros a
 En general, las primeras capas de una red convolucional son las encargadas de extraer las características más generales de la imagen, mientras que las más profundas utilizan la información extraída por las capas anteriores, capturando carácterísticas más específicas. Finalmente, se añade una capa completamente conectada, que es la encargada de, con estas características realizar la clasificación de la imagen.
 
 Este tipo de redes son muy útiles gracias a la multitud de propiedades que tiene la operación de convolución (conmutatividad, asociatividad, distributividad, ...), y a que sería inviable entrenar una red completamente conectada que trabajase con imágenes, pues el número de parámetros sería demasiado grande.
-
-\section{Relación con la estadística}
-
-Una de las interpretaciones estadísticas más obvias del Perceptrón multicapa, es que este proporciona una regresión no lineal estimada optimizando en cierta medida los datos de entrenamiento. Si estos últimos no tienen ruido, entonces el ejercicio es de aproximación de funciones. Hay muchos desarrollos sistemáticos recientes en regresión, y se deben enfrentar al menos tres preguntas importantes:
-\begin{itemize}
-\item ¿Cómo se comparan las redes neuronales y las prescripciones estadísticas en términos de rendimiento?
-\item ¿Como de buenas son las diversas arquitecturas a la hora de aproximar miembros de clases particulares de funciones de regresión?
-\item ¿Cuáles son los métodos numéricos más confiables y prácticos para la estimación de parámetros?
-\end{itemize}
-
-El Perceptrón de una capa y el Perceptrón multicapa definen dos de los desarrollos estadísticos: la regresión de búsqueda-proyección y los modelos aditivos generalizados.
-
-El problema de encontrar pesos óptimos para un asociador lineal y para un
-El conjunto de entrenamiento dado $T$ se conoce en estadística como regresión lineal múltiple. Estamos
-buscando constantes $w_0, w_1, \cdots w_n$ tal que los valores y se puedan calcular
-de los valores $x$:
-$$y_i = w_0 + w_1 x_1^i + w_2 x_2^i + \cdots + w_n x_n^i + \epsilon_i $$
-donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema se puede resolver utilizando métodos algebraicos. (Introducir o no la resolucion algebraica???? Pag 4 de Statistics and NN )
 
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA
