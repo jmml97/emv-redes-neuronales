@@ -394,9 +394,76 @@ El conjunto de entrenamiento dado $T$ se conoce en estadística como regresión 
 buscando constantes $w_0, w_1, \cdots w_n$ tal que los valores y se puedan calcular
 de los valores $x$:
 $$y_i = w_0 + w_1 x_1^i + w_2 x_2^i + \cdots + w_n x_n^i + \epsilon_i $$
-donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema se puede resolver utilizando métodos algebraicos. (Introducir o no la resolucion algebraica???? Pag 4 de Statistics and NN )
+donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos
+incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas
+deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema
+se puede resolver utilizando métodos algebraicos. (Introducir o no la resolucion
+algebraica???? Pag 4 de Statistics and NN )
 
+\section{Clasificación de redes neuronales}
+Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen:
 
+\begin{itemize}
+\item \textbf{Aprendizaje supervisado. } Junto con el conjunto de entrada de la
+  red, se utiliza un conjunto de salida deseada. El trabajo de la red consiste
+  en reproducir la salida deseada para cada entrada. Para conseguirlo trata de
+  minimizar el cuadrado de la distancia entre la salida de la red y la salida
+  esperada. Este tipo de aprendizaje se suele utilizar en reconocimiento de
+  patrones, clasificación y regresión.
+\item \textbf{Aprendizaje no supervisado. } En este tipo de entrenamiento, los
+  datos de entrada se dan junto con una función de coste (una función de los
+  datos y la salida de la red). El objetivo de la red es minimizar dicha función
+  de coste. Estas redes se utilizan generalmente para resolver problemas de
+  estimación y clustering.
+\item \textbf{Aprendizaje por refuerzo. } El objetivo de este tipo de
+  entrenamiento es hacer que la red adapte una politica de acción que minimice
+  un coste (long-term) No me queda claro.
+\end{itemize}
+
+\subsection{Autoencoders}
+
+Un autoencoder es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la
+salida, tiene una capa interna que constituye el <<código>> con
+el que queremos representar la entrada. Se encuentra dividida en dos partes
+principales:
+\begin{itemize}
+  \item \textbf{Codificador. }Conjunto de capas que transforman la entrada al
+    <<código>>.
+  \item \textbf{Decodificador. }Conjunto de capas que transforman el
+    <<código>> a la entrada original
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/autoencoder}
+  \caption{Esquema de un autoencoder}
+  \label{fig:autoencoder}
+\end{figure}
+
+La aplicación mas directa de los \textit{autoencoders} es la reducción de
+dimensionalidad para aprendizaje de características. Al forzar a la red a
+codificar la entrada en un espacio de menos dimensión, la obligamos a abstraer
+de ellas ciertas características que, además, nos permiten reconstruir la
+imagen.
+
+En el caso mas simple donde solo existe una capa oculta, la fase de codificación
+toma $x \in \mathbb{R}^p$ y devuelve $h \in \mathbb{R}^d$ con $d < p$ de la
+forma:
+\[
+h = \sigma (Wx+b)
+\]
+Donde $\sigma$ es una función de activación (sigmoide o ReLu), $W$ es una matriz
+de pesos y $b$ es un vector de sesgo. Los pesos y el sesgo se suelen inicializar
+de forma aleatoria y se van actualizando mediante \textit{backpropagation}.
+Despues el codificador reconstruye $x'$ de la misma dimensión que $x$.
+\[
+x' = \sigma' (W'h + b')
+\]
+Donde $\sigma', W'$ y $b'$ no estan relacionadas con las del codificador. El autoencoder encontes busca minimizar el error cuadrático, normalmente
+referido como pérdida.
+\[
+\mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2
+\]
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA
 %-------------------------------------------------------------------------------
