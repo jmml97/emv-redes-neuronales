@@ -528,6 +528,23 @@ referido como pérdida.
 \[
 \mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2
 \]
+
+\subsection{Redes Neuronales Recurrentes}%
+\label{sub:redes_neuronales_recurrentes}
+
+Las redes neuronales recurrentes, o \textbf{RNN} de forma abreviada, son una de las variantes de redes más importantes utilizadas en procesamiento de lenguaje natural.
+
+En general, las redes neuronales convencionales procesan una entrada a través de un conjunto de capas y producen una salida, asumiendo que dos entradas consecutivas son independientes. Sin embargo, en escenarios de la vida real esto no siempre es cierto, siendo el ejemplo más claro el intentar predecir la siguiente palabra de una oración, donde es primordial el conjunto de palabras anteriores.
+
+Las RNN intentan solucionar este problema. Estas realizan el mismo trabajo para cada elemento de una secuencia, dependiendo la salida de los cálculos previos. En teoría las redes recurrentes pueden usar información de secuencias de longitud arbitraria, pero en la práctica están limitadas a coger información de unos pocos pasos anteriores. Este problema se lo solucionan las redes de arquitectura \textit{Long short-term memory}, que estan basadas en las RNN. En la siguiente imagen (Figura ) mostramos un ejemplo de la estructura de una RNN.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/rnn.jpeg}
+    \caption{Ejemplo de red neuronal recurrente desenrrollada.}%
+    \label{fig:rnn}
+\end{figure}
+
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA
 %-------------------------------------------------------------------------------
