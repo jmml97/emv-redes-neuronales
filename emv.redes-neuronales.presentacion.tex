@@ -330,12 +330,50 @@ Dos tipos:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Clasificación de redes neuronales}
+\begin{frame}{Clasificación según el modelo de aprendizaje}
 \begin{itemize}
-  \item \textbf{Aprendizaje supervisado}. El trabajo de la red consiste en reproducir la salida deseada para cada entrada, minimizando el cuadrado de la distancia entre la salida de la red y la salida esperada.
-  \item \textbf{Aprendizaje no supervisado}. Los datos de entrada se dan junto con una función de coste (una función de los datos y la salida de la red). El objetivo de la red es minimizar dicha función de coste.
-  \item \textbf{Aprendizaje por refuerzo}. El objetivo de este tipo de entrenamiento es hacer que la red adapte una política de acción que minimice un coste (\textit{long-term}).
+  \item \textbf{Aprendizaje supervisado}. El conjunto de entrenamiento se
+    encuentra <<etiquetado>>.
+  \item \textbf{Aprendizaje no supervisado}. Minimizar una función de coste.
+  \item \textbf{Aprendizaje por refuerzo}. La red busca maximizar una función de
+    recompensa <<acumulada>>.
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Autoencoders}
+\begin{itemize}
+\item Aprendizaje no supervisado.
+\item Codifica la entrada.
+\item Busca copiar su entrada en la salida. Está formado por:
+  \begin{itemize}
+    \item Codificador
+    \item Decodificador
+  \end{itemize}
+\end{itemize}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{img/autoencoder}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Ejemplo reducción de dimensión}
+    Base de datos MNIST, números escritos a mano.\\
+  Imagenes originales $28\times28 \implies \mathbb{R}^{784}$.
+\begin{figure}[h]
+  \includegraphics[width=.6\textwidth]{img/autoencoder_ex1}
+\end{figure}
+Imagenes reconstruidas.\\
+
+Codificación en $\mathbb{R}^4$. Primera imagen: $\{13.325841, 16.394411, 13.2127905, 0.90243316\}$
+\end{frame}
+
+
+\begin{frame}{Ejemplo eliminación de ruido}
+Entrenamos la red con imágenes con ruido como entrada e imágenes sin ruido como
+salida deseada.
+\begin{figure}[h]
+  \includegraphics[width=.6\textwidth]{img/autoencoder_ex2}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Redes convolucionales}
@@ -349,19 +387,7 @@ Dos tipos:
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Autoencoders}
-\begin{itemize}
-  \item Un autoencoder es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la salida. Está formado por dos partes:
-  \begin{itemize}
-    \item Codificador. Conjunto de capas que transforman la entrada al «código».
-    \item Decodificador. Conjunto de capas que transforman el «código» a la entrada original.
-  \end{itemize}
-\end{itemize}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.6\textwidth]{img/autoencoder}
-\end{figure}
-\end{frame}
+
 
 \begin{frame}{Redes Neuronales Recurrentes}
 \begin{itemize}
@@ -372,13 +398,6 @@ de lenguaje natural.
   \includegraphics[width=.6\textwidth]{img/rnn}
 \end{figure}
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Ejemplo}
-\begin{figure}[h]
-  \includegraphics[width=.6\textwidth]{img/autoencoder_ex1}
-  \includegraphics[width=.6\textwidth]{img/autoencoder_ex2}
-\end{figure}
 \end{frame}
 
 \begin{frame}{CIFAR-10}
