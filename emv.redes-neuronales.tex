@@ -395,18 +395,41 @@ $$y_i = w_0 + w_1 x_1^i + w_2 x_2^i + \cdots + w_n x_n^i + \epsilon_i $$
 
 donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema se puede resolver utilizando métodos algebraicos.
 
+\subsection{Redes convolucionales}%
+\label{sub:redes_convolucionales}
+
+Las redes neuronales convolucionales son un tipo de red que han sido muy efectivas en áreas relacionadas con las imágenes, como el reconocimiento o clasificación de estas.
+
+Una de las principales diferencias con las redes neuronales usuales, es que la entrada de estás es una imagen con tres canales, por ejemplo, un tensor de tamaño $32\times 32 \times 3$, en lugar de un vector como en las redes neuronales tradicionales.
+
+A continuación explicaremos el concepto de convolución, que es el principal motivo por el que este tipo de redes son tan útiles. Continuando con el ejemplo, supongamos que tenemos una imagen representada por un tensor de naturales de tamaño $32\times 32 \times 3$, y consideremos también de menor tamaño, por ejemplo $5 \times 5 \times 3$, que será el filtro o núcleo de la convolución. Entonces, aplicar la convolución de núcleo el mencionado a la imagen consiste en <<desplazar>> por todas las posibles posiciones de la matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro. En la Figura \ref{fig:conv} podemos ver un ejemplo de este proceso.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/conv.png}
+    \caption{Ejemplo de convolución en una imagen.}%
+    \label{fig:conv}
+\end{figure}
+
+Dicho esto, una capa de una red convolucional consiste en una serie de filtros a aplicar a la imagen resultante de la capa anterior, siendo los valores de dichos filtros los parámetros que queremos estimar.
+
+En general, las primeras capas de una red convolucional son las encargadas de extraer las características más generales de la imagen, mientras que las más profundas utilizan la información extraída por las capas anteriores, capturando carácterísticas más específicas. Finalmente, se añade una capa completamente conectada, que es la encargada de, con estas características realizar la clasificación de la imagen.
+
+Este tipo de redes son muy útiles gracias a la multitud de propiedades que tiene la operación de convolución (conmutatividad, asociatividad, distributividad, ...), y a que sería inviable entrenar una red completamente conectada que trabajase con imágenes, pues el número de parámetros sería demasiado grande.
+
 \section{Título pendiente}
 
 A la hora de diseñar una red neuronal hay que intentar evitar dos principales problemas:
 \begin{itemize}
 
-\item Overfitting. Uno de los problemas que ocurren durante el entrenamiento de la red neuronal se llama sobreajuste. El error en el conjunto de entrenamiento se lleva a un valor muy pequeño, pero cuando se presentan nuevos datos a la red, el error es grande. La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones.
+\item Overfitting. Uno de los problemas que ocurren durante el entrenamiento de la red neuronal se llama sobreajuste. El error en el conjunto de entrenamiento se lleva a un valor muy pequeño, pero cuando se presentan nuevos datos a la red, el error es grande. La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones. En la Figura \ref{fig:overfitting} podemos ver.
+%FIXME: caption.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{img/overfitting}
-  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
-  \label{fig:multi}
+  \caption{Qué vemos aquí.}
+  \label{fig:overfitting}
 \end{figure}
 
 \item \textit{Learning-rate} o tasa de aprendizaje. Este parámetro el que indica cuanto hay que cambiar el modelo en respuesta al error estimado cada vez que actualizan los pesos de este. Elegir el \textit{learning-rate} puede ser una tarea muy complicada, ya que un valor demasiado pequeño puede acarrear el error de que la red no termine de aprender en el proceso de entrenamiento, mientras que elegir un parámetro demasiado elevado puede llevar a la que red se sobreajuste.
@@ -414,33 +437,43 @@ A la hora de diseñar una red neuronal hay que intentar evitar dos principales p
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{img/learning-rate}
-  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
-  \label{fig:multi}
+  \caption{Qué vemos aquí.}
+  \label{fig:learning-rate}
 \end{figure}
 
 \end{itemize}
 
 \section{Teorema de aproximación universal}
 
-En la teoría matemática de las redes neuronales artificiales, el teorema de aproximación universal establece que una red feed-forward con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo suposiciones leves sobre la función de activación. El teorema establece que las redes neuronales simples pueden representar una amplia variedad de funciones interesantes cuando se les dan parámetros apropiados; sin embargo, no toca la capacidad de aprendizaje algorítmico de esos parámetros.
+En la teoría matemática de las redes neuronales artificiales, el teorema de aproximación universal establece que una red \textit{feed-forward} con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo condiciones poco restrictivas sobre la función de activación. El teorema establece que las redes neuronales simples pueden representar una amplia variedad de funciones interesantes cuando se les dan parámetros apropiados; sin embargo, no toca la capacidad de aprendizaje algorítmico de esos parámetros.
 
-Aunque las redes feed-forward con una sola capa oculta son aproximadores universales, el ancho de tales redes tiene que ser exponencialmente grande. En 2017 Lu et al. Probaron el Teorema de aproximación universal para redes neuronales profundas con ancho acotado. En particular, demostraron que las redes de ancho $n + 4$ con funciones de activación ReLU pueden aproximarse cualquier función integrable de Lebesgue en el espacio de entrada n-dimensional con respecto a la distancia $L ^ {1}$ si la profundidad de la red puede crecer.
+Aunque las redes \textit{feed-forward} con una sola capa oculta son aproximadores universales, el ancho de tales redes tiene que ser exponencialmente grande. En el año 2017 los investigadores Zhou Lu, Hongming Pu, Feicheng Wang y otros \parencite{lu_expressive_2017} probaron el Teorema de aproximación universal para redes neuronales profundas con ancho acotado. En particular, demostraron que las redes de ancho $n + 4$ con funciones de activación ReLU pueden aproximar cualquier función integrable de Lebesgue en el espacio de entrada n-dimensional con respecto a la distancia $L ^ {1}$ si la profundidad de la red puede crecer.
 
-Matemáticamente la expresión del teorema se puede expresar en dos versiones: la aplicada a un ancho no acotado y al ancho acotado.
-\textbf{Caso ancho no acotado:}
+Matemáticamente la expresión del teorema se puede expresar en dos versiones, la aplicada a un ancho no acotado y al ancho acotado, que vamos a comentar a continuación.
 
-Sea $\varphi:\mathbb{R} \rightarrow \mathbb{R}$ una función no constante, acotada y continua, llamada la función de activación e $I_m$ el hipercubo de la unidad de dimensión $m$ , $[0,1]^m$. El espacio de funciones continuas de valor real en $I_m$ se denota como $C(I_m)$. Entonces, dado un $\epsilon > 0$ y una función $f \in C(I_m)$, existe un entero $N$, constantes reales $v_i , b_i \in \mathbb{R}$ y vectores reales $w_i \in \mathbb{R}^m$ para $i =1 \cdots N$,  tales que podemos definir:
-$$ F (x) = \sum_{{i = 1}}^{{N}} v_{i} \varphi \left (w_ {i} ^ {T} x + b_ {i} \right) $$
-Como una realización aproximada de la función $f$, que es:
-$$|F(x)-f(x)| < \epsilon \ \ \forall x \in I_m$$
- En otras palabras, las funciones de la forma $F(x)$ son densas en $C(I_m)$.
-Esto funciona también , tomando cualquier subconjunto compacto de $\mathbb{R}^m$ , en lugar de $I_m$.
+\subsection{Caso ancho no acotado}
 
-\textbf{Caso ancho acotado:}
+Sea $\varphi:\mathbb{R} \rightarrow \mathbb{R}$ una función no constante, acotada y continua, llamada \textit{función de activación}.
+Sea $I_m$ el hipercubo de la unidad de dimensión $m$, $[0,1]^m$.
+El espacio de funciones continuas de valor real en $I_m$ se denota como $C(I_m)$.
+Entonces, dado un valor $\varepsilon > 0$ y una función $f \in C(I_m)$, existen un valor entero $N$, unas constantes reales $v_i , b_i \in \mathbb{R}$ y unos vectores reales $w_i \in \mathbb{R}^m$, para $i =1 \cdots N$, tales que podemos definir la función
+\[
+  F (x) = \sum_{{i = 1}}^{{N}} v_{i} \varphi \left (w_ {i} ^ {T} x + b_ {i} \right)
+\]
+como una realización aproximada de la función $f$, es decir, se verifica que
+\[
+  |F(x)-f(x)| < \varepsilon
+\]
+para todo \(x \in I_m\).
+En otras palabras, las funciones de la forma $F(x)$ son densas en $C(I_m)$.
+Esto es válido también si tomamos cualquier subconjunto compacto de $\mathbb{R}^m$ en lugar de $I_m$.
 
-Para cualquier función Lebesgue-integrable $f: \mathbb{R}^n \rightarrow \mathbb{R}$ y cualquier $\epsilon >0$, existe una red completamente conectada con activación ReLU A con ancho $d_m \leq n+4$, tal que la función $F_A$ representada por esta red satisface :
+\subsection{Caso ancho acotado}
 
-$${\displaystyle \int_{\mathbb{R}^{n}}\left|f(x)-F_{A}(x)\right|\mathrm {d} x<\epsilon } $$
+Para cualquier función Lebesgue-integrable $f: \mathbb{R}^n \rightarrow \mathbb{R}$ y cualquier $\varepsilon >0$, existe una red completamente conectada con activación ReLU \(\mathcal A\) con ancho $d_m \leq n+4$, tal que la función $F_{\mathcal A}$ representada por esta red verifica que
+\[
+  \displaystyle \int_{\mathbb{R}^{n}}\left|f(x)-F_{\mathcal A}(x)\right|\dif x < \varepsilon.
+\]
 
 \section{Clasificación de redes neuronales}
 Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen:
@@ -459,7 +492,7 @@ Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen
   estimación y clustering.
 \item \textbf{Aprendizaje por refuerzo. } El objetivo de este tipo de
   entrenamiento es hacer que la red adapte una politica de acción que minimice
-  un coste (long-term) No me queda claro.
+  un coste (\textit{long-term}) No me queda claro.
 \end{itemize}
 
 \subsection{Redes convolucionales}%
@@ -486,21 +519,18 @@ Este tipo de redes son muy útiles gracias a la multitud de propiedades que tien
 
 \subsection{Autoencoders}
 
-Un autoencoder es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la
+Un \textit{autoencoder} es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la
 salida, tiene una capa interna que constituye el <<código>> con
-el que queremos representar la entrada. Se encuentra dividida en dos partes
-principales:
+el que queremos representar la entrada. Se encuentra dividida en dos partes principales:
 \begin{itemize}
-  \item \textbf{Codificador. }Conjunto de capas que transforman la entrada al
-    <<código>>.
-  \item \textbf{Decodificador. }Conjunto de capas que transforman el
-    <<código>> a la entrada original
+  \item \textbf{Codificador.} Conjunto de capas que transforman la entrada al <<código>>.
+  \item \textbf{Decodificador.} Conjunto de capas que transforman el <<código>> a la entrada original.
 \end{itemize}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{img/autoencoder}
-  \caption{Esquema de un autoencoder}
+  \caption{Esquema de un autoencoder.}
   \label{fig:autoencoder}
 \end{figure}
 
@@ -510,23 +540,23 @@ codificar la entrada en un espacio de menos dimensión, la obligamos a abstraer
 de ellas ciertas características que, además, nos permiten reconstruir la
 imagen.
 
-En el caso mas simple donde solo existe una capa oculta, la fase de codificación
+En el caso más simple donde solo existe una capa oculta, la fase de codificación
 toma $x \in \mathbb{R}^p$ y devuelve $h \in \mathbb{R}^d$ con $d < p$ de la
-forma:
+forma
 \[
-h = \sigma (Wx+b)
+h = \sigma (Wx+b),
 \]
-Donde $\sigma$ es una función de activación (sigmoide o ReLu), $W$ es una matriz
+donde $\sigma$ es una función de activación (sigmoide o ReLu), $W$ es una matriz
 de pesos y $b$ es un vector de sesgo. Los pesos y el sesgo se suelen inicializar
 de forma aleatoria y se van actualizando mediante \textit{backpropagation}.
-Despues el codificador reconstruye $x'$ de la misma dimensión que $x$.
+Despues el codificador reconstruye $x'$ de la misma dimensión que $x$,
 \[
-x' = \sigma' (W'h + b')
+x' = \sigma' (W'h + b'),
 \]
-Donde $\sigma', W'$ y $b'$ no estan relacionadas con las del codificador. El autoencoder encontes busca minimizar el error cuadrático, normalmente
-referido como pérdida.
+donde $\sigma', W'$ y $b'$ no estan relacionadas con las del codificador. El autoencoder encontes busca minimizar el error cuadrático, normalmente
+referido como pérdida:
 \[
-\mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2
+\mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2\,.
 \]
 
 \subsection{Redes Neuronales Recurrentes}%
@@ -543,6 +573,18 @@ Las RNN intentan solucionar este problema. Estas realizan el mismo trabajo para 
     \includegraphics[width=0.7\linewidth]{img/rnn.jpeg}
     \caption{Ejemplo de red neuronal recurrente desenrrollada.}%
     \label{fig:rnn}
+\end{figure}
+
+\section{CIFAR-10 dataset}
+El conjunto de datos CIFAR-10 tiene 60000 imagenes en color de 32x32 píxeles divididas en 10 clases, con 6000 imagenes por clase. El conjunto se divide en 50000 imagenes para el conjunto de entrenamiento y 10000 imagenes en el conjunto de test.
+Las clases 10 son: aviones, coches, pájaros, gatos, ciervo, perro, ranas, caballos, barcos y camiones.
+Las clases son completamente exclusivas, es decir no hay parecidos entre clases similares, por ejemplo ningún coche se podrá confundir con un camión.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/model}
+  \caption{Capas del modelo.}
+  \label{fig:model}
 \end{figure}
 
 %-------------------------------------------------------------------------------
