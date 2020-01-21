@@ -376,10 +376,14 @@ Una vez que tenemos unos pesos \textit{suficientemente buenos}, podemos utilizar
 
 También podemos abordar el problema de regresión lineal mediante redes neuronales. En particular, si consideramos una red con un único nodo de salida y que utilice únicamente funciones de activación lineal, podremos entrenarla para que aprenda los pesos (coeficientes) de la función lineal que mejor aproxima los datos de entrada. Si utilizamos como función de error el error cuadrático, estaríamos ante una regresión por mínimos cuadrados.
 
+Un punto en contra de los modelos basados en redes neuronales es que sufren de \textit{pérdida de interpretabilidad} frente a modelos clásicos. A cambio, las redes neuronales consiguen resolver problemas mucho más complejos de forma automática, en parte gracias a la gran capacidad de cómputo de la que disponen los ordenadores hoy en día.
+
 También se puede afrontar el problema de regresión ni lineal estimada  optimizando en cierta medida los datos de entrenamiento. Si estos últimos no tienen ruido, entonces el ejercicio es de aproximación de funciones. Hay muchos desarrollos sistemáticos recientes en regresión, y se deben enfrentar al menos dos preguntas importantes:
+
 \begin{itemize}
 \item ¿Cómo se comparan las redes neuronales y las prescripciones estadísticas en términos de rendimiento?
 \item ¿Como de buenas son las diversas arquitecturas a la hora de aproximar miembros de clases particulares de funciones de regresión?
+\end{itemize}
 
 El Perceptrón de una capa y el Perceptrón multicapa definen dos de los desarrollos estadísticos: la regresión de búsqueda-proyección y los modelos aditivos generalizados.
 
@@ -388,11 +392,243 @@ El conjunto de entrenamiento dado $T$ se conoce en estadística como regresión 
 buscando constantes $w_0, w_1, \cdots w_n$ tal que los valores y se puedan calcular
 de los valores $x$:
 $$y_i = w_0 + w_1 x_1^i + w_2 x_2^i + \cdots + w_n x_n^i + \epsilon_i $$
+
 donde $\epsilon_i$ representa la aproximación del error (notamos que no hemos incluido la constante $w_0$ en la aproximación). Las constantes seleccionadas deben minimizar el error cuadrático $\sum_{i=1}^{n} \epsilon_i^2$. Este problema se puede resolver utilizando métodos algebraicos.
 
-Un punto en contra de los modelos basados en redes neuronales es que sufren de \textit{pérdida de interpretabilidad} frente a modelos clásicos. A cambio, las redes neuronales consiguen resolver problemas mucho más complejos de forma automática, en parte gracias a la gran capacidad de cómputo de la que disponen los ordenadores hoy en día.
+\subsection{Redes convolucionales}%
+\label{sub:redes_convolucionales}
+
+Las redes neuronales convolucionales son un tipo de red que han sido muy efectivas en áreas relacionadas con las imágenes, como el reconocimiento o clasificación de estas.
+
+Una de las principales diferencias con las redes neuronales usuales, es que la entrada de estás es una imagen con tres canales, por ejemplo, un tensor de tamaño $32\times 32 \times 3$, en lugar de un vector como en las redes neuronales tradicionales.
+
+A continuación explicaremos el concepto de convolución, que es el principal motivo por el que este tipo de redes son tan útiles. Continuando con el ejemplo, supongamos que tenemos una imagen representada por un tensor de naturales de tamaño $32\times 32 \times 3$, y consideremos también de menor tamaño, por ejemplo $5 \times 5 \times 3$, que será el filtro o núcleo de la convolución. Entonces, aplicar la convolución de núcleo el mencionado a la imagen consiste en <<desplazar>> por todas las posibles posiciones de la matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro. En la Figura \ref{fig:conv} podemos ver un ejemplo de este proceso.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/conv.png}
+    \caption{Ejemplo de convolución en una imagen.}%
+    \label{fig:conv}
+\end{figure}
+
+Dicho esto, una capa de una red convolucional consiste en una serie de filtros a aplicar a la imagen resultante de la capa anterior, siendo los valores de dichos filtros los parámetros que queremos estimar.
+
+En general, las primeras capas de una red convolucional son las encargadas de extraer las características más generales de la imagen, mientras que las más profundas utilizan la información extraída por las capas anteriores, capturando carácterísticas más específicas. Finalmente, se añade una capa completamente conectada, que es la encargada de, con estas características realizar la clasificación de la imagen.
+
+Este tipo de redes son muy útiles gracias a la multitud de propiedades que tiene la operación de convolución (conmutatividad, asociatividad, distributividad, ...), y a que sería inviable entrenar una red completamente conectada que trabajase con imágenes, pues el número de parámetros sería demasiado grande.
+
+\section{Título pendiente}
+
+A la hora de diseñar una red neuronal hay que intentar evitar dos principales problemas:
+\begin{itemize}
+
+\item Overfitting. Uno de los problemas que ocurren durante el entrenamiento de la red neuronal se llama sobreajuste. El error en el conjunto de entrenamiento se lleva a un valor muy pequeño, pero cuando se presentan nuevos datos a la red, el error es grande. La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones. En la Figura \ref{fig:overfitting} podemos ver.
+%FIXME: caption.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/overfitting}
+  \caption{Qué vemos aquí.}
+  \label{fig:overfitting}
+\end{figure}
+
+\item \textit{Learning-rate} o tasa de aprendizaje. Este parámetro el que indica cuanto hay que cambiar el modelo en respuesta al error estimado cada vez que actualizan los pesos de este. Elegir el \textit{learning-rate} puede ser una tarea muy complicada, ya que un valor demasiado pequeño puede acarrear el error de que la red no termine de aprender en el proceso de entrenamiento, mientras que elegir un parámetro demasiado elevado puede llevar a la que red se sobreajuste.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/learning-rate}
+  \caption{Qué vemos aquí.}
+  \label{fig:learning-rate}
+\end{figure}
+
+\end{itemize}
+
+\section{Teorema de aproximación universal}
+
+En la teoría matemática de las redes neuronales artificiales, el teorema de aproximación universal establece que una red \textit{feed-forward} con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo condiciones poco restrictivas sobre la función de activación. El teorema establece que las redes neuronales simples pueden representar una amplia variedad de funciones interesantes cuando se les dan parámetros apropiados; sin embargo, no toca la capacidad de aprendizaje algorítmico de esos parámetros.
+
+Aunque las redes \textit{feed-forward} con una sola capa oculta son aproximadores universales, el ancho de tales redes tiene que ser exponencialmente grande. En el año 2017 los investigadores Zhou Lu, Hongming Pu, Feicheng Wang y otros \parencite{lu_expressive_2017} probaron el Teorema de aproximación universal para redes neuronales profundas con ancho acotado. En particular, demostraron que las redes de ancho $n + 4$ con funciones de activación ReLU pueden aproximar cualquier función integrable de Lebesgue en el espacio de entrada n-dimensional con respecto a la distancia $L ^ {1}$ si la profundidad de la red puede crecer.
+
+Matemáticamente la expresión del teorema se puede expresar en dos versiones, la aplicada a un ancho no acotado y al ancho acotado, que vamos a comentar a continuación.
+
+\subsection{Caso ancho no acotado}
+
+Sea $\varphi:\mathbb{R} \rightarrow \mathbb{R}$ una función no constante, acotada y continua, llamada \textit{función de activación}.
+Sea $I_m$ el hipercubo de la unidad de dimensión $m$, $[0,1]^m$.
+El espacio de funciones continuas de valor real en $I_m$ se denota como $C(I_m)$.
+Entonces, dado un valor $\varepsilon > 0$ y una función $f \in C(I_m)$, existen un valor entero $N$, unas constantes reales $v_i , b_i \in \mathbb{R}$ y unos vectores reales $w_i \in \mathbb{R}^m$, para $i =1 \cdots N$, tales que podemos definir la función
+\[
+  F (x) = \sum_{{i = 1}}^{{N}} v_{i} \varphi \left (w_ {i} ^ {T} x + b_ {i} \right)
+\]
+como una realización aproximada de la función $f$, es decir, se verifica que
+\[
+  |F(x)-f(x)| < \varepsilon
+\]
+para todo \(x \in I_m\).
+En otras palabras, las funciones de la forma $F(x)$ son densas en $C(I_m)$.
+Esto es válido también si tomamos cualquier subconjunto compacto de $\mathbb{R}^m$ en lugar de $I_m$.
+
+\subsection{Caso ancho acotado}
+
+Para cualquier función Lebesgue-integrable $f: \mathbb{R}^n \rightarrow \mathbb{R}$ y cualquier $\varepsilon >0$, existe una red completamente conectada con activación ReLU \(\mathcal A\) con ancho $d_m \leq n+4$, tal que la función $F_{\mathcal A}$ representada por esta red verifica que
+\[
+  \displaystyle \int_{\mathbb{R}^{n}}\left|f(x)-F_{\mathcal A}(x)\right|\dif x < \varepsilon.
+\]
+
+\section{Clasificación de redes neuronales}
+Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen:
+
+\begin{itemize}
+\item \textbf{Aprendizaje supervisado. } Junto con el conjunto de entrada de la
+  red, se utiliza un conjunto de salida deseada. El trabajo de la red consiste
+  en reproducir la salida deseada para cada entrada. Para conseguirlo trata de
+  minimizar el cuadrado de la distancia entre la salida de la red y la salida
+  esperada. Este tipo de aprendizaje se suele utilizar en reconocimiento de
+  patrones, clasificación y regresión.
+\item \textbf{Aprendizaje no supervisado. } En este tipo de entrenamiento, los
+  datos de entrada se dan junto con una función de coste (una función de los
+  datos y la salida de la red). El objetivo de la red es minimizar dicha función
+  de coste. Estas redes se utilizan generalmente para resolver problemas de
+  estimación y clustering.
+\item \textbf{Aprendizaje por refuerzo. } El objetivo de este tipo de
+  entrenamiento es hacer que la red adapte una politica de acción que minimice
+  un coste (\textit{long-term}) No me queda claro.
+\end{itemize}
+
+\subsection{Redes convolucionales}%
+\label{sub:redes_convolucionales}
+
+Las redes neuronales convolucionales son un tipo de red que han sido muy efectivas en áreas relacionadas con las imágenes, como el reconocimiento o clasificación de estas.
+
+Una de las principales diferencias con las redes neuronales usuales, es que la entrada de estás es una imagen con tres canales, por ejemplo, un tensor de tamaño $32\times 32 \times 3$, en lugar de un vector como en las redes neuronales tradicionales.
+
+A continuación explicaremos el concepto de convolución, que es el principal motivo por el que este tipo de redes son tan útiles. Continuando con el ejemplo, supongamos que tenemos una imagen representada por un tensor de naturales de tamaño $32\times 32 \times 3$, y consideremos también de menor tamaño, por ejemplo $5 \times 5 \times 3$, que será el filtro o núcleo de la convolución. Entonces, aplicar la convolución de núcleo el mencionado a la imagen consiste en <<desplazar>> por todas las posibles posiciones de la matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro. En la Figura \ref{fig:conv} mostramos un imagen que ejemplifica esto:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/conv.jpeg}
+    \caption{Ejemplo de convolución de una imagen.}%
+    \label{fig:conv}
+\end{figure}
+
+Dicho esto, una capa de una red convolucional consiste en una serie de filtros a aplicar a la imagen resultante de la capa anterior, siendo los valores de dichos filtros los parámetros que queremos estimar.
+
+En general, las primeras capas de una red convolucional son las encargadas de extraer las características más generales de la imagen, mientras que las más profundas utilizan la información extraída por las capas anteriores, capturando carácterísticas más específicas. Finalmente, se añade una capa completamente conectada, que es la encargada de, con estas características realizar la clasificación de la imagen.
+
+Este tipo de redes son muy útiles gracias a la multitud de propiedades que tiene la operación de convolución (conmutatividad, asociatividad, distributividad, ...), y a que sería inviable entrenar una red completamente conectada que trabajase con imágenes, pues el número de parámetros sería demasiado grande.
+
+\subsection{Autoencoders}
+
+Un \textit{autoencoder} es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la
+salida, tiene una capa interna que constituye el <<código>> con
+el que queremos representar la entrada. Se encuentra dividida en dos partes principales:
+\begin{itemize}
+  \item \textbf{Codificador.} Conjunto de capas que transforman la entrada al <<código>>.
+  \item \textbf{Decodificador.} Conjunto de capas que transforman el <<código>> a la entrada original.
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/autoencoder}
+  \caption{Esquema de un autoencoder.}
+  \label{fig:autoencoder}
+\end{figure}
+Enlace: https://towardsdatascience.com/applied-deep-learning-part-3-autoencoders-1c083af4d798
+La aplicación mas directa de los \textit{autoencoders} es la reducción de
+dimensionalidad para aprendizaje de características. Al forzar a la red a
+codificar la entrada en un espacio de menos dimensión, la obligamos a abstraer
+de ellas ciertas características que, además, nos permiten reconstruir la
+imagen.
+
+En el caso más simple donde solo existe una capa oculta, la fase de codificación
+toma $x \in \mathbb{R}^p$ y devuelve $h \in \mathbb{R}^d$ con $d < p$ de la
+forma
+\[
+h = \sigma (Wx+b),
+\]
+donde $\sigma$ es una función de activación (sigmoide o ReLu), $W$ es una matriz
+de pesos y $b$ es un vector de sesgo. Los pesos y el sesgo se suelen inicializar
+de forma aleatoria y se van actualizando mediante \textit{backpropagation}.
+Despues el codificador reconstruye $x'$ de la misma dimensión que $x$,
+\[
+x' = \sigma' (W'h + b'),
+\]
+donde $\sigma', W'$ y $b'$ no estan relacionadas con las del codificador. El autoencoder encontes busca minimizar el error cuadrático, normalmente
+referido como pérdida:
+\[
+\mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2\,.
+\]
+
+\subsubsection{Ejemplo}
+
+Vamos a ver un ejemplo donde utilizamos la base de datos \textit{MNIST} para
+codificar imágenes de números en un vector de valores reales.
+
+Para ello utilizamos una red de 5 capas, leeremos imágenes de dimensión 28x28 en
+escala de grises, luego la primera capa tendrá $$28x28=784$$ neuronas, la
+siguiente tendrá 128 y el código final 4. Luego subimos a 128 nuevamente y
+finalmente a 784 que será la imagen reconstruida.
+
+Veamos un ejemplo de resultado.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/autoencoder_ex1}
+  \caption{Ejemplo de ejecución del autoencoder.}
+  \label{fig:autoencoder_ex1}
+\end{figure}
+
+Podemos inspeccionar el código de la primera imagen
+$$\{13.325841  , 16.394411  , 13.2127905 ,  0.90243316\}$$
+
+También podemos utilizar el \textit{autoencoder} para eliminar ruido de
+imágenes. Si entrenamos la red para que dada una entrada de imágenes con ruido,
+las codifique e iguale la salida a las imagnes sin ruido, podemos utilizar la
+red para hacer lo mimo con futuras imágenes.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/autoencoder_ex2}
+  \caption{Ejemplo de ejecución del autoencoder para eliminar ruido.}
+  \label{fig:autoencoder_ex1}
+\end{figure}
 
 
+\subsection{Redes Neuronales Recurrentes}%
+\label{sub:redes_neuronales_recurrentes}
+
+Las redes neuronales recurrentes, o \textbf{RNN} de forma abreviada, son una de las variantes de redes más importantes utilizadas en procesamiento de lenguaje natural.
+
+En general, las redes neuronales convencionales procesan una entrada a través de un conjunto de capas y producen una salida, asumiendo que dos entradas consecutivas son independientes. Sin embargo, en escenarios de la vida real esto no siempre es cierto, siendo el ejemplo más claro el intentar predecir la siguiente palabra de una oración, donde es primordial el conjunto de palabras anteriores.
+
+Las RNN intentan solucionar este problema. Estas realizan el mismo trabajo para cada elemento de una secuencia, dependiendo la salida de los cálculos previos. En teoría las redes recurrentes pueden usar información de secuencias de longitud arbitraria, pero en la práctica están limitadas a coger información de unos pocos pasos anteriores. Este problema se lo solucionan las redes de arquitectura \textit{Long short-term memory}, que estan basadas en las RNN. En la siguiente imagen (Figura ) mostramos un ejemplo de la estructura de una RNN.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/rnn.jpeg}
+    \caption{Ejemplo de red neuronal recurrente desenrrollada.}%
+    \label{fig:rnn}
+\end{figure}
+
+\section{Ejemplo}
+El conjunto de datos CIFAR-10 tiene 60000 imagenes en color de 32x32 píxeles divididas en 10 clases, con 6000 imagenes por clase. El conjunto se divide en 50000 imagenes para el conjunto de entrenamiento y 10000 imagenes en el conjunto de test.
+Las clases 10 son: aviones, coches, pájaros, gatos, ciervo, perro, ranas, caballos, barcos y camiones.
+Las clases son completamente exclusivas, es decir no hay parecidos entre clases similares, por ejemplo ningún coche se podrá confundir con un camión.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/cifar10}
+  \caption{Conjunto de datos CIFAR10.}
+  \label{fig:cifar10}
+\end{figure}
+
+FALTA EXPLICAR EL MODELO
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/model}
+  \caption{Capas del modelo.}
+  \label{fig:model}
+\end{figure}
 
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA
