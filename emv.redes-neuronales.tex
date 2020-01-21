@@ -402,7 +402,7 @@ Las redes neuronales convolucionales son un tipo de red que han sido muy efectiv
 
 Una de las principales diferencias con las redes neuronales usuales, es que la entrada de estás es una imagen con tres canales, por ejemplo, un tensor de tamaño $32\times 32 \times 3$, en lugar de un vector como en las redes neuronales tradicionales.
 
-A continuación explicaremos el concepto de convolución, que es el principal motivo por el que este tipo de redes son tan útiles. Continuando con el ejemplo, supongamos que tenemos una imagen representada por un tensor de naturales de tamaño $32\times 32 \times 3$, y consideremos también de menor tamaño, por ejemplo $5 \times 5 \times 3$, que será el filtro o núcleo de la convolución. Entonces, aplicar la convolución de núcleo el mencionado a la imagen consiste en <<desplazar>> por todas las posibles posiciones de la matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro. En la Figura \ref{fig:conv} mostramos un imagen que ejemplifica esto:
+A continuación explicaremos el concepto de convolución, que es el principal motivo por el que este tipo de redes son tan útiles. Continuando con el ejemplo, supongamos que tenemos una imagen representada por un tensor de naturales de tamaño $32\times 32 \times 3$, y consideremos también de menor tamaño, por ejemplo $5 \times 5 \times 3$, que será el filtro o núcleo de la convolución. Entonces, aplicar la convolución de núcleo el mencionado a la imagen consiste en <<desplazar>> por todas las posibles posiciones de la matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro. En la Figura \ref{fig:conv} podemos ver un ejemplo.
 
 \begin{figure}[h]
     \centering
@@ -437,32 +437,41 @@ A la hora de diseñar una red neuronal hay que intentar evitar dos principales p
   \centering
   \includegraphics[width=.8\textwidth]{img/learning-rate}
   \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
-  \label{fig:multi}
 \end{figure}
 
 \end{itemize}
 
 \section{Teorema de aproximación universal}
 
-En la teoría matemática de las redes neuronales artificiales, el teorema de aproximación universal establece que una red feed-forward con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo suposiciones leves sobre la función de activación. El teorema establece que las redes neuronales simples pueden representar una amplia variedad de funciones interesantes cuando se les dan parámetros apropiados; sin embargo, no toca la capacidad de aprendizaje algorítmico de esos parámetros.
+En la teoría matemática de las redes neuronales artificiales, el teorema de aproximación universal establece que una red \textit{feed-forward} con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo condiciones poco restrictivas sobre la función de activación. El teorema establece que las redes neuronales simples pueden representar una amplia variedad de funciones interesantes cuando se les dan parámetros apropiados; sin embargo, no toca la capacidad de aprendizaje algorítmico de esos parámetros.
 
-Aunque las redes feed-forward con una sola capa oculta son aproximadores universales, el ancho de tales redes tiene que ser exponencialmente grande. En 2017 Lu et al. Probaron el Teorema de aproximación universal para redes neuronales profundas con ancho acotado. En particular, demostraron que las redes de ancho $n + 4$ con funciones de activación ReLU pueden aproximarse cualquier función integrable de Lebesgue en el espacio de entrada n-dimensional con respecto a la distancia $L ^ {1}$ si la profundidad de la red puede crecer.
+Aunque las redes \textit{feed-forward} con una sola capa oculta son aproximadores universales, el ancho de tales redes tiene que ser exponencialmente grande. En el año 2017 los investigadores Zhou Lu, Hongming Pu, Feicheng Wang y otros \parencite{lu_expressive_2017} probaron el Teorema de aproximación universal para redes neuronales profundas con ancho acotado. En particular, demostraron que las redes de ancho $n + 4$ con funciones de activación ReLU pueden aproximar cualquier función integrable de Lebesgue en el espacio de entrada n-dimensional con respecto a la distancia $L ^ {1}$ si la profundidad de la red puede crecer.
 
-Matemáticamente la expresión del teorema se puede expresar en dos versiones: la aplicada a un ancho no acotado y al ancho acotado.
-\textbf{Caso ancho no acotado:}
+Matemáticamente la expresión del teorema se puede expresar en dos versiones, la aplicada a un ancho no acotado y al ancho acotado, que vamos a comentar a continuación.
 
-Sea $\varphi:\mathbb{R} \rightarrow \mathbb{R}$ una función no constante, acotada y continua, llamada la función de activación e $I_m$ el hipercubo de la unidad de dimensión $m$ , $[0,1]^m$. El espacio de funciones continuas de valor real en $I_m$ se denota como $C(I_m)$. Entonces, dado un $\epsilon > 0$ y una función $f \in C(I_m)$, existe un entero $N$, constantes reales $v_i , b_i \in \mathbb{R}$ y vectores reales $w_i \in \mathbb{R}^m$ para $i =1 \cdots N$,  tales que podemos definir:
-$$ F (x) = \sum_{{i = 1}}^{{N}} v_{i} \varphi \left (w_ {i} ^ {T} x + b_ {i} \right) $$
-Como una realización aproximada de la función $f$, que es:
-$$|F(x)-f(x)| < \epsilon \ \ \forall x \in I_m$$
- En otras palabras, las funciones de la forma $F(x)$ son densas en $C(I_m)$.
-Esto funciona también , tomando cualquier subconjunto compacto de $\mathbb{R}^m$ , en lugar de $I_m$.
+\subsection{Caso ancho no acotado}
 
-\textbf{Caso ancho acotado:}
+Sea $\varphi:\mathbb{R} \rightarrow \mathbb{R}$ una función no constante, acotada y continua, llamada \textit{función de activación}. 
+Sea $I_m$ el hipercubo de la unidad de dimensión $m$, $[0,1]^m$. 
+El espacio de funciones continuas de valor real en $I_m$ se denota como $C(I_m)$. 
+Entonces, dado un valor $\varepsilon > 0$ y una función $f \in C(I_m)$, existen un valor entero $N$, unas constantes reales $v_i , b_i \in \mathbb{R}$ y unos vectores reales $w_i \in \mathbb{R}^m$, para $i =1 \cdots N$, tales que podemos definir la función
+\[ 
+  F (x) = \sum_{{i = 1}}^{{N}} v_{i} \varphi \left (w_ {i} ^ {T} x + b_ {i} \right)
+\]
+como una realización aproximada de la función $f$, es decir, se verifica que
+\[
+  |F(x)-f(x)| < \varepsilon
+\]
+para todo \(x \in I_m\).
+En otras palabras, las funciones de la forma $F(x)$ son densas en $C(I_m)$.
+Esto es válido también si tomamos cualquier subconjunto compacto de $\mathbb{R}^m$ en lugar de $I_m$.
 
-Para cualquier función Lebesgue-integrable $f: \mathbb{R}^n \rightarrow \mathbb{R}$ y cualquier $\epsilon >0$, existe una red completamente conectada con activación ReLU A con ancho $d_m \leq n+4$, tal que la función $F_A$ representada por esta red satisface :
+\subsection{Caso ancho acotado}
 
-$${\displaystyle \int_{\mathbb{R}^{n}}\left|f(x)-F_{A}(x)\right|\mathrm {d} x<\epsilon } $$
+Para cualquier función Lebesgue-integrable $f: \mathbb{R}^n \rightarrow \mathbb{R}$ y cualquier $\varepsilon >0$, existe una red completamente conectada con activación ReLU \(\mathcal A\) con ancho $d_m \leq n+4$, tal que la función $F_{\mathcal A}$ representada por esta red verifica que
+\[
+  \displaystyle \int_{\mathbb{R}^{n}}\left|f(x)-F_{\mathcal A}(x)\right|\dif x < \varepsilon.
+\]
 
 \section{Clasificación de redes neuronales}
 Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen:
