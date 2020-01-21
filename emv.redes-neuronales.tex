@@ -402,7 +402,7 @@ Las redes neuronales convolucionales son un tipo de red que han sido muy efectiv
 
 Una de las principales diferencias con las redes neuronales usuales, es que la entrada de estás es una imagen con tres canales, por ejemplo, un tensor de tamaño $32\times 32 \times 3$, en lugar de un vector como en las redes neuronales tradicionales.
 
-A continuación explicaremos el concepto de convolución, que es el principal motivo por el que este tipo de redes son tan útiles. Continuando con el ejemplo, supongamos que tenemos una imagen representada por un tensor de naturales de tamaño $32\times 32 \times 3$, y consideremos también de menor tamaño, por ejemplo $5 \times 5 \times 3$, que será el filtro o núcleo de la convolución. Entonces, aplicar la convolución de núcleo el mencionado a la imagen consiste en <<desplazar>> por todas las posibles posiciones de la matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro. En la Figura \ref{fig:conv} podemos ver un ejemplo.
+A continuación explicaremos el concepto de convolución, que es el principal motivo por el que este tipo de redes son tan útiles. Continuando con el ejemplo, supongamos que tenemos una imagen representada por un tensor de naturales de tamaño $32\times 32 \times 3$, y consideremos también de menor tamaño, por ejemplo $5 \times 5 \times 3$, que será el filtro o núcleo de la convolución. Entonces, aplicar la convolución de núcleo el mencionado a la imagen consiste en <<desplazar>> por todas las posibles posiciones de la matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro. En la Figura \ref{fig:conv} podemos ver un ejemplo de este proceso.
 
 \begin{figure}[h]
     \centering
@@ -422,13 +422,14 @@ Este tipo de redes son muy útiles gracias a la multitud de propiedades que tien
 A la hora de diseñar una red neuronal hay que intentar evitar dos principales problemas:
 \begin{itemize}
 
-\item Overfitting. Uno de los problemas que ocurren durante el entrenamiento de la red neuronal se llama sobreajuste. El error en el conjunto de entrenamiento se lleva a un valor muy pequeño, pero cuando se presentan nuevos datos a la red, el error es grande. La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones.
+\item Overfitting. Uno de los problemas que ocurren durante el entrenamiento de la red neuronal se llama sobreajuste. El error en el conjunto de entrenamiento se lleva a un valor muy pequeño, pero cuando se presentan nuevos datos a la red, el error es grande. La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones. En la Figura \ref{fig:overfitting} podemos ver.
+%FIXME: caption.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{img/overfitting}
-  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
-  \label{fig:multi}
+  \caption{Qué vemos aquí.}
+  \label{fig:overfitting}
 \end{figure}
 
 \item Pocos datos en el conjunto de entrenamiento.
@@ -436,7 +437,8 @@ A la hora de diseñar una red neuronal hay que intentar evitar dos principales p
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{img/learning-rate}
-  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
+  \caption{Qué vemos aquí.}
+  \label{fig:learning-rate}
 \end{figure}
 
 \end{itemize}
@@ -490,26 +492,23 @@ Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen
   estimación y clustering.
 \item \textbf{Aprendizaje por refuerzo. } El objetivo de este tipo de
   entrenamiento es hacer que la red adapte una politica de acción que minimice
-  un coste (long-term) No me queda claro.
+  un coste (\textit{long-term}) No me queda claro.
 \end{itemize}
 
 \subsection{Autoencoders}
 
-Un autoencoder es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la
+Un \textit{autoencoder} es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la
 salida, tiene una capa interna que constituye el <<código>> con
-el que queremos representar la entrada. Se encuentra dividida en dos partes
-principales:
+el que queremos representar la entrada. Se encuentra dividida en dos partes principales:
 \begin{itemize}
-  \item \textbf{Codificador. }Conjunto de capas que transforman la entrada al
-    <<código>>.
-  \item \textbf{Decodificador. }Conjunto de capas que transforman el
-    <<código>> a la entrada original
+  \item \textbf{Codificador.} Conjunto de capas que transforman la entrada al <<código>>.
+  \item \textbf{Decodificador.} Conjunto de capas que transforman el <<código>> a la entrada original.
 \end{itemize}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{img/autoencoder}
-  \caption{Esquema de un autoencoder}
+  \caption{Esquema de un autoencoder.}
   \label{fig:autoencoder}
 \end{figure}
 
@@ -519,23 +518,23 @@ codificar la entrada en un espacio de menos dimensión, la obligamos a abstraer
 de ellas ciertas características que, además, nos permiten reconstruir la
 imagen.
 
-En el caso mas simple donde solo existe una capa oculta, la fase de codificación
+En el caso más simple donde solo existe una capa oculta, la fase de codificación
 toma $x \in \mathbb{R}^p$ y devuelve $h \in \mathbb{R}^d$ con $d < p$ de la
-forma:
+forma
 \[
-h = \sigma (Wx+b)
+h = \sigma (Wx+b),
 \]
-Donde $\sigma$ es una función de activación (sigmoide o ReLu), $W$ es una matriz
+donde $\sigma$ es una función de activación (sigmoide o ReLu), $W$ es una matriz
 de pesos y $b$ es un vector de sesgo. Los pesos y el sesgo se suelen inicializar
 de forma aleatoria y se van actualizando mediante \textit{backpropagation}.
-Despues el codificador reconstruye $x'$ de la misma dimensión que $x$.
+Despues el codificador reconstruye $x'$ de la misma dimensión que $x$,
 \[
-x' = \sigma' (W'h + b')
+x' = \sigma' (W'h + b'),
 \]
-Donde $\sigma', W'$ y $b'$ no estan relacionadas con las del codificador. El autoencoder encontes busca minimizar el error cuadrático, normalmente
-referido como pérdida.
+donde $\sigma', W'$ y $b'$ no estan relacionadas con las del codificador. El autoencoder encontes busca minimizar el error cuadrático, normalmente
+referido como pérdida:
 \[
-\mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2
+\mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2\,.
 \]
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA
