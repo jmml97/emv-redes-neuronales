@@ -533,7 +533,7 @@ el que queremos representar la entrada. Se encuentra dividida en dos partes prin
   \caption{Esquema de un autoencoder.}
   \label{fig:autoencoder}
 \end{figure}
-
+Enlace: https://towardsdatascience.com/applied-deep-learning-part-3-autoencoders-1c083af4d798
 La aplicación mas directa de los \textit{autoencoders} es la reducción de
 dimensionalidad para aprendizaje de características. Al forzar a la red a
 codificar la entrada en un espacio de menos dimensión, la obligamos a abstraer
@@ -558,6 +558,42 @@ referido como pérdida:
 \[
 \mathcal{L}(x,x') = \|x-x'\|^2 = \|x - \sigma'(W'(\sigma(Wx + b))+b')\|^2\,.
 \]
+
+\subsubsection{Ejemplo}
+
+Vamos a ver un ejemplo donde utilizamos la base de datos \textit{MNIST} para
+codificar imágenes de números en un vector de valores reales.
+
+Para ello utilizamos una red de 5 capas, leeremos imágenes de dimensión 28x28 en
+escala de grises, luego la primera capa tendrá $$28x28=784$$ neuronas, la
+siguiente tendrá 128 y el código final 4. Luego subimos a 128 nuevamente y
+finalmente a 784 que será la imagen reconstruida.
+
+Veamos un ejemplo de resultado.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/autoencoder_ex1}
+  \caption{Ejemplo de ejecución del autoencoder.}
+  \label{fig:autoencoder_ex1}
+\end{figure}
+
+Podemos inspeccionar el código de la primera imagen
+$$\{13.325841  , 16.394411  , 13.2127905 ,  0.90243316\}$$
+
+También podemos utilizar el \textit{autoencoder} para eliminar ruido de
+imágenes. Si entrenamos la red para que dada una entrada de imágenes con ruido,
+las codifique e iguale la salida a las imagnes sin ruido, podemos utilizar la
+red para hacer lo mimo con futuras imágenes.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/autoencoder_ex2}
+  \caption{Ejemplo de ejecución del autoencoder para eliminar ruido.}
+  \label{fig:autoencoder_ex1}
+\end{figure}
+
+
+
 
 \subsection{Redes Neuronales Recurrentes}%
 \label{sub:redes_neuronales_recurrentes}
