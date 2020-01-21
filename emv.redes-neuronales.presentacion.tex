@@ -16,6 +16,12 @@
 \usepackage{multirow}
 \usepackage{enumitem}
 
+% Matemáticas
+
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathtools}
+\usepackage{commath}
+
 %%% FUENTES
 
 \usepackage[no-math]{fontspec}
@@ -217,6 +223,173 @@
     \item Este modelo no es adecuado para realizar un proceso de aprendizaje ya que hay que cambiar los valores de la neurona para resolver diferentes problemas.
     \item Se perdió pronto el interés en este modelo computacional y se desarrollaron otros.
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Perceptrón de una capa}
+  \begin{itemize}
+    \item El perceptrón es un sistema que imita el funcionamiento de una neurona, consistente en una neurona de \textit{McCulloch-Pitts} con pesos $\beta_i \in \mathbb{R}$
+    \item $\beta_i > 0$ conexiones exitadoras.
+    \item $\beta_i < 0$ conexiones inhibidoras.
+    \item $U \sum_j \beta_j X_j$
+  \end{itemize}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.7\textwidth]{img/perceptron}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Perceptrón de una capa}
+  \begin{itemize}
+    \item Linealmente separables: se puede interpretar como un algoritmo de clasificación binaria.
+    \item No linealmente separables: la función asociada no es computable por un Perceptrón.
+  \end{itemize}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.2\textwidth]{img/non-separable}
+    \includegraphics[width=.2\textwidth]{img/separable}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Funciones de activación}
+  \begin{itemize}
+    \item Entrada: $X=(X_1, \cdots , X_r)^T$ vector aleatorio de entradas y tenemos $s$ nodos de salida, en cada uno de ellos se calcula:
+    $$U_k = \beta_{0k} + X^T \beta_{k} , \ k = 1, \cdots , s $$
+    \item Salida: $$ U_k = f(\beta_{0k} + X^T \beta_k) \ k = 1, \cdots , s$$
+  \end{itemize}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.7\textwidth]{img/relu}
+    \caption{Gráfica de la función ReLU.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Procesos de aprendizaje}
+\begin{itemize}
+\item La estrategia de las redes es utilizar el conocimiento de la clase correcta para ir pasando ejemplos por la red y predecir la clase a la que pertenece cada uno, intentando corregir los pesos si se detecta un error. Esta técnica se conoce como \textbf{aprendizaje supervisado}.
+\item La regla para actualizar los pesos en cada iteración es la siguiente:
+  \begin{enumerate}
+    \item Si la versión actual de los pesos $\beta_h$ consigue clasificar correctamente $X_h$, no cambiamos los pesos para la siguiente iteración.
+    \item Si con los pesos $\beta_h$ no obtenemos una clasificación correcta, hacemos:
+    $$\beta_{h+1} = \beta_h + \eta signo(X^{t}_{h} \beta_h)X_h  $$
+  \end{enumerate}
+  El parámetros $\eta > 0$ se conoce como \textit{learning rate}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Procesos de aprendizaje}
+\item Una solución del problema será un vector de pesos $\beta^\ast$ que clasifique correctamente todos los ejemplos. Y de aquí obtenemos el siguiente resultado:
+\item \textbf{Teorema (Convergencia del perceptrón)} Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
+\end{frame}
+
+\begin{frame}{Perceptrón multicapa}
+  \begin{itemize}
+    \item Se distribuyen los nodos en varias capas y se aplican transformaciones no lineales en el paso de una capa a la siguiente.
+    \item Dos tipos:
+    \begin{itemize}
+      \item Capas totalmente contectadas.
+      \item Capar parcialmente conectadas.
+    \end{itemize}
+  \end{itemize}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.7\textwidth]{img/multicapa}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Perceptrón multicapa}
+  \begin{itemize}
+    \item Para el proceso de aprendizaje de la red, se utiliza la técnica de gradiente descendente.
+    \item Una vez conseguida pesos \textit{suficientemente buenos} se puede utilizar la red para clasificar nuevos ejemplos.
+    \item También se puede abordar el problema de regresión lineal.
+    \item Desventaja: pérdida de interpretabilidad frente a modelos clásicos.
+    \item Ventaja: consiguen resolver problemas mucho más complejos.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Principales problemas}
+\textbf{Overfitting}: La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\textwidth]{img/overfitting}
+  \end{figure}
+\end{frame}
+\begin{frame}{Principales problemas}
+\textbf{Learning rate}: Indica cuanto hay que cambiar el modelo en respuesta al error estimado cada vez que actualizan los pesos de este.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\textwidth]{img/learning-rate}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Teorema de aproximación universal}
+El teorema de aproximación universal establece que una red feed-forward con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo condiciones poco restrictivas sobre la función de activación.
+Dos tipos:
+\begin{itemize}
+  \item Ancho acotado.
+  \item Ancho no acotado.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Clasificación de redes neuronales}
+\begin{itemize}
+  \item \textbf{Aprendizaje supervisado}. El trabajo de la red consiste en reproducir la salida deseada para cada entrada, minimizando el cuadrado de la distancia entre la salida de la red y la salida esperada.
+  \item \textbf{Aprendizaje no supervisado}. Los datos de entrada se dan junto con una función de coste (una función de los datos y la salida de la red). El objetivo de la red es minimizar dicha función de coste.
+  \item \textbf{Aprendizaje por refuerzo}. El objetivo de este tipo de entrenamiento es hacer que la red adapte una política de acción que minimice un coste (\textit{long-term}).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Redes convolucionales}
+  \begin{itemize}
+    \item Convolución: consiste en «desplazarse» por todas las posibles posiciones de una matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro seleccionado.
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=.6\textwidth]{img/conv}
+    \end{figure}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Autoencoders}
+\begin{itemize}
+  \item Un autoencoder es un tipo de read neuronal de aprendizaje no supervisado que aprende a copiar su entrada en la salida. Está formado por dos partes:
+  \begin{itemize}
+    \item Codificador. Conjunto de capas que transforman la entrada al «código».
+    \item Decodificador. Conjunto de capas que transforman el «código» a la entrada original.
+  \end{itemize}
+\end{itemize}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{img/autoencoder}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Redes Neuronales Recurrentes}
+\begin{itemize}
+\item Son una de las variantes de redes más importantes utilizadas en procesamiento
+de lenguaje natural.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{img/rnn}
+\end{figure}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\begin{figure}[h]
+  \includegraphics[width=.6\textwidth]{img/autoencoder_ex1}
+  \includegraphics[width=.6\textwidth]{img/autoencoder_ex2}
+\end{figure}
+\end{frame}
+
+\begin{frame}{CIFAR-10}
+\begin{itemize}
+  \item El conjunto de datos CIFAR-10 tiene 60000 imágenes en color de 32x32 píxeles divididas en 10 clases, con 6000 imágenes por clase. El conjunto se divide en 50000 imágenes para el conjunto de entrenamiento y 10000 imágenes en el conjunto de test.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\textwidth]{img/cifar10}
+  \end{figure}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}[t,allowframebreaks]{Referencias}
