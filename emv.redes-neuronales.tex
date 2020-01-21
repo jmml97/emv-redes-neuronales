@@ -432,7 +432,7 @@ A la hora de diseñar una red neuronal hay que intentar evitar dos principales p
   \label{fig:overfitting}
 \end{figure}
 
-\item Pocos datos en el conjunto de entrenamiento.
+\item \textit{Learning-rate} o tasa de aprendizaje. Este parámetro el que indica cuanto hay que cambiar el modelo en respuesta al error estimado cada vez que actualizan los pesos de este. Elegir el \textit{learning-rate} puede ser una tarea muy complicada, ya que un valor demasiado pequeño puede acarrear el error de que la red no termine de aprender en el proceso de entrenamiento, mientras que elegir un parámetro demasiado elevado puede llevar a la que red se sobreajuste.
 
 \begin{figure}[h]
   \centering
@@ -494,6 +494,28 @@ Las redes se pueden clasificar según el paradigma de entrenamiento que utilicen
   entrenamiento es hacer que la red adapte una politica de acción que minimice
   un coste (\textit{long-term}) No me queda claro.
 \end{itemize}
+
+\subsection{Redes convolucionales}%
+\label{sub:redes_convolucionales}
+
+Las redes neuronales convolucionales son un tipo de red que han sido muy efectivas en áreas relacionadas con las imágenes, como el reconocimiento o clasificación de estas.
+
+Una de las principales diferencias con las redes neuronales usuales, es que la entrada de estás es una imagen con tres canales, por ejemplo, un tensor de tamaño $32\times 32 \times 3$, en lugar de un vector como en las redes neuronales tradicionales.
+
+A continuación explicaremos el concepto de convolución, que es el principal motivo por el que este tipo de redes son tan útiles. Continuando con el ejemplo, supongamos que tenemos una imagen representada por un tensor de naturales de tamaño $32\times 32 \times 3$, y consideremos también de menor tamaño, por ejemplo $5 \times 5 \times 3$, que será el filtro o núcleo de la convolución. Entonces, aplicar la convolución de núcleo el mencionado a la imagen consiste en <<desplazar>> por todas las posibles posiciones de la matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro. En la Figura \ref{fig:conv} mostramos un imagen que ejemplifica esto:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/conv.png}
+    \caption{Ejemplo de convolución en una imagen.}%
+    \label{fig:conv}
+\end{figure}
+
+Dicho esto, una capa de una red convolucional consiste en una serie de filtros a aplicar a la imagen resultante de la capa anterior, siendo los valores de dichos filtros los parámetros que queremos estimar.
+
+En general, las primeras capas de una red convolucional son las encargadas de extraer las características más generales de la imagen, mientras que las más profundas utilizan la información extraída por las capas anteriores, capturando carácterísticas más específicas. Finalmente, se añade una capa completamente conectada, que es la encargada de, con estas características realizar la clasificación de la imagen.
+
+Este tipo de redes son muy útiles gracias a la multitud de propiedades que tiene la operación de convolución (conmutatividad, asociatividad, distributividad, ...), y a que sería inviable entrenar una red completamente conectada que trabajase con imágenes, pues el número de parámetros sería demasiado grande.
 
 \subsection{Autoencoders}
 
