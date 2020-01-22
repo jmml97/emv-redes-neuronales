@@ -150,7 +150,7 @@
   Cristina de la Torre Villaverde
 }
 \institute{\normalsize Universidad de Granada}
-\date{20 de enero de 2020}
+\date{\today}
 
 \begin{document}
 
@@ -262,7 +262,7 @@
 
 \begin{frame}{Perceptrón de una capa}
   \begin{itemize}
-    \item Si los datos de entrada son linealmente separables, se puede interpretar como un algoritmo de clasificación binaria: divide los datos según el hiperplano $U=0$.
+    \item Si los datos de entrada son linealmente separables, se puede interpretar como un algoritmo de clasificación binaria.
     \item Si no son linealmente separables, la función asociada no es computable por un perceptrón.
   \end{itemize}
   \vspace{1em}
@@ -386,6 +386,117 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Redes convolucionales}
+    \begin{itemize}
+        \item Uno de los problemas principales de las redes neuronales convencionales en el tratamiento de imágenes es el gran número de parámetros involucrados.
+        \item La solución más extendida son las redes convolucionales.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Redes convolucionales}
+  \begin{itemize}
+    \item Convolución: consiste en «desplazarse» por todas las posibles posiciones de una matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro seleccionado.
+\vspace{1em}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/conv.jpeg}
+    \caption{Ejemplo de convolución de una imagen. Extraído de \parencite{machine_image_2017}.}%
+    \label{fig:conv}
+\end{figure}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Redes convolucionales}
+    \begin{itemize}
+        \item Las capas más externas extraen características más generales.
+        \item Las capas más profundas extraen características más específicas.
+        \item Al final se añade una capa completamente conectada que realiza la clasificación de las imágenes.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Redes neuronales recurrentes}
+\begin{itemize}
+\item Son una de las variantes de redes más importantes utilizadas en procesamiento
+de lenguaje natural.
+\item Las redes neuronales convencionales producen una salida asumiendo que dos entradas distintas son independientes.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Redes neuronales recurrentes}
+\begin{itemize}
+\item Las RNN intentan solucionar este problema realizando el mismo
+trabajo para cada elemento de una secuencia, dependiendo la salida
+de los cálculos previos. Se forman bucles.
+\vspace{1em}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{img/rnn}
+    \caption{Ejemplo de red neuronal recurrente desenrrollada. Extraída de \parencite{nigam_understanding_2018}.}%
+    \label{fig:rnn}
+\end{figure}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Clasificación de redes según su aprendizaje}
+      \begin{itemize}
+      \item \textbf{Aprendizaje supervisado}. El conjunto de entrenamiento se
+        encuentra <<etiquetado>>.
+      \item \textbf{Aprendizaje no supervisado}. Minimizar una función de coste.
+      \item \textbf{Aprendizaje por refuerzo}. La red busca maximizar una función de
+        recompensa <<acumulada>>.
+      \end{itemize}
+\end{frame}
+
+\begin{frame}{Autoencoders}
+\begin{itemize}
+\item Aprendizaje no supervisado.
+\item Codifica la entrada y busca copiarla en la salida.
+\item Se compone de dos partes diferenciadas: codificador y decodificador.
+\end{itemize}
+\vspace{1em}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/autoencoder}
+  \caption{Esquema de un \textit{autoencoder}. Extraído de \parencite{arden_autoencoder_2017}.}
+  \label{fig:autoencoder}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Ejemplo de reducción de dimensión}
+  \begin{itemize}
+    \item Base de datos MNIST: dígitos escritos a mano.
+    \item Imágenes originales $28\times28 \implies$ las vemos en $\mathbb{R}^{784}$.
+    \item Codificación en $\mathbb{R}^4$.
+  \end{itemize}
+\vspace{1em}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.55\textwidth]{img/autoencoder_ex1}
+  \caption{Ejemplo de ejecución del \textit{autoencoder} construido. Extraída de \parencite{arden_autoencoder_2017}.}
+  \label{fig:autoencoder_ex1}
+\end{figure}
+\vspace{-1em}
+\begin{itemize}
+\item Codificación primera imagen: $$\{13.325841, 16.394411, 13.2127905, 0.90243316\}$$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Ejemplo eliminación de ruido}
+  \begin{itemize}
+      \item Entrenamos la red con imágenes con ruido como entrada e imágenes sin ruido como salida deseada.
+  \end{itemize}
+  \vspace{1em}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{img/autoencoder_ex2}
+  \caption{Ejemplo de ejecución del \textit{autoencoder} para eliminar ruido. Extraída de \parencite{arden_autoencoder_2017}.}
+  \label{fig:autoencoder_ex2}
+\end{figure}
+\end{frame}
+
 \begin{frame}{Aspectos de diseño}
   \begin{itemize}
 \item \textbf{\textit{Overfitting}}: La red ha memorizado los ejemplos de entrenamiento, pero no ha aprendido a generalizar a nuevas situaciones.
@@ -437,106 +548,6 @@
 
 \end{frame}
 
-\begin{frame}{Clasificación de redes según su aprendizaje}
-      \begin{itemize}
-      \item \textbf{Aprendizaje supervisado}. El conjunto de entrenamiento se
-        encuentra <<etiquetado>>.
-      \item \textbf{Aprendizaje no supervisado}. Minimizar una función de coste.
-      \item \textbf{Aprendizaje por refuerzo}. La red busca maximizar una función de
-        recompensa <<acumulada>>.
-      \end{itemize}
-\end{frame}
-
-\begin{frame}{Autoencoders}
-\begin{itemize}
-\item Aprendizaje no supervisado.
-\item Codifica la entrada y busca copiarla en la salida.
-\item Se compone de dos partes diferenciadas: codificador y decodificador.
-\end{itemize}
-\vspace{1em}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.5\textwidth]{img/autoencoder}
-  \caption{Esquema de un \textit{autoencoder}. Extraído de \parencite{arden_autoencoder_2017}.}
-  \label{fig:autoencoder}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Ejemplo de reducción de dimensión}
-  \begin{itemize}
-    \item Base de datos MNIST: dígitos escritos a mano.
-    \item Imágenes originales $28\times28 \implies$ las vemos en $\mathbb{R}^{784}$.
-    \item Codificación en $\mathbb{R}^4$.
-  \end{itemize}
-\vspace{1em}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.55\textwidth]{img/autoencoder_ex1}
-  \caption{Ejemplo de ejecución del \textit{autoencoder} construido. Extraída de \parencite{arden_autoencoder_2017}.}
-  \label{fig:autoencoder_ex1}
-\end{figure}
-\vspace{-1em}
-\begin{itemize}
-\item Codificación primera imagen: $$\{13.325841, 16.394411, 13.2127905, 0.90243316\}$$
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Ejemplo eliminación de ruido}
-Entrenamos la red con imágenes con ruido como entrada e imágenes sin ruido como
-salida deseada.
-\begin{figure}[h]
-  \includegraphics[width=.6\textwidth]{img/autoencoder_ex2}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Redes convolucionales}
-    \begin{itemize}
-        \item Uno de los problemas principales de las redes neuronales convencionales en el tratamiento de imágenes es el gran número de parámetros.
-        \item La solución más extendida son las redes convolucionales.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Redes convolucionales}
-  \begin{itemize}
-    \item Convolución: consiste en «desplazarse» por todas las posibles posiciones de una matriz, y aplicar el producto elemento a elemento entre la submatriz y el filtro seleccionado.
-
-    \begin{figure}[h]
-      \centering
-      \includegraphics[width=.6\textwidth]{img/conv}
-    \end{figure}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Redes convolucionales}
-    \begin{itemize}
-        \item Las capas más externas extraen características más generales.
-        \item Las capas más profundas extraen características más específicas.
-        \item Al final se añade una capa completamente conectada que realiza la clasificación de las imágenes.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Redes Neuronales Recurrentes}
-\begin{itemize}
-\item Son una de las variantes de redes más importantes utilizadas en procesamiento
-de lenguaje natural.
-\item Las redes neuronales convencionales producen una salida asumiendo que dos entradas distintas son independientes.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Redes Neuronales Recurrentes}
-\begin{itemize}
-\item Las RNN intentan solucionar este problema realizando el mismo
-trabajo para cada elemento de una secuencia, dependiendo la salida
-de los cálculos previos.
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.6\textwidth]{img/rnn}
-\end{figure}
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Teorema de aproximación universal}
   \begin{itemize}
 \item El teorema de aproximación universal, probado en 1989, establece que una red \textit{feed-forward} con una sola capa oculta que contiene un número finito de neuronas puede aproximar con precisión arbitraria cualquier función continua en un subconjunto compacto de $\mathbb{R}^n$, bajo condiciones poco restrictivas sobre la función de activación.
@@ -549,29 +560,37 @@ de los cálculos previos.
 
 \end{frame}
 
-\begin{frame}{CIFAR-10}
+\begin{frame}{Ejemplo de clasificación en CIFAR-10}
 \begin{itemize}
-  \item El conjunto de datos CIFAR-10 tiene 60000 imágenes en color de 32x32 píxeles divididas en 10 clases, con 6000 imágenes por clase. El conjunto se divide en 50000 imágenes para el conjunto de entrenamiento y 10000 imágenes en el conjunto de test.
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=.6\textwidth]{img/cifar10}
-  \end{figure}
+  \item El conjunto de datos CIFAR-10 tiene 60000 imágenes en color de 32x32 píxeles divididas en 10 clases, con 6000 imágenes por clase. Se divide en 50000 imágenes para entrenamiento y 10000 imágenes para test.
+  \vspace{1em}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/cifar10}
+  \caption{Clases del conjunto de datos CIFAR-10. Extraída de \parencite{rizhevsky_cifar_2013}.}
+  \label{fig:cifar10}
+\end{figure}
+
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Modelo}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=.5\textwidth]{img/model}
-  \end{figure}
+\begin{frame}{Modelo utilizado}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/model}
+  \caption{Capas de la red convolucional construida.}
+  \label{fig:model}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Resultados}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=.5\textwidth]{img/graficascifar}
-  \end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/graficascifar}
+  \caption{Gráficas de entrenamiento y validación en el conjunto CIFAR-10.}
+  \label{fig:cifar-result}
+\end{figure}
 \end{frame}
 
 \begin{frame}[t,allowframebreaks]{Referencias}
