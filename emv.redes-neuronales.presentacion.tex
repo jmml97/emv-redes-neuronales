@@ -148,7 +148,7 @@
   Cristina de la Torre Villaverde
 }
 \institute{\normalsize Universidad de Granada}
-\date{20 de enero de 2020\texorpdfstring{\\}{} \small Curso 2019-2020}
+\date{20 de enero de 2020}
 
 \begin{document}
 
@@ -270,15 +270,17 @@
   \begin{enumerate}
     \item Si la versión actual de los pesos $\beta_h$ consigue clasificar correctamente $X_h$, no cambiamos los pesos para la siguiente iteración.
     \item Si con los pesos $\beta_h$ no obtenemos una clasificación correcta, hacemos:
-    $$\beta_{h+1} = \beta_h + \eta signo(X^{t}_{h} \beta_h)X_h  $$
+    $$\beta_{h+1} = \beta_h + \eta \, \operatorname{signo}(X^{t}_{h} \beta_h)X_h  $$
   \end{enumerate}
   El parámetros $\eta > 0$ se conoce como \textit{learning rate}.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Procesos de aprendizaje}
-\item Una solución del problema será un vector de pesos $\beta^\ast$ que clasifique correctamente todos los ejemplos. Y de aquí obtenemos el siguiente resultado:
-\item \textbf{Teorema (Convergencia del perceptrón)} Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
+  \begin{itemize}
+    \item Una solución del problema será un vector de pesos $\beta^\ast$ que clasifique correctamente todos los ejemplos. Y de aquí obtenemos el siguiente resultado:
+    \item \textbf{Teorema (Convergencia del perceptrón)} Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Perceptrón multicapa}
