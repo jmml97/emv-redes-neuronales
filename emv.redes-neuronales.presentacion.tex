@@ -360,14 +360,22 @@
     \item Se distribuyen los nodos en varias capas y se aplican transformaciones no lineales en el paso de una capa a la siguiente.
     \item Dos tipos:
     \begin{itemize}
-      \item Capas totalmente contectadas.
-      \item Capar parcialmente conectadas.
+      \item capas totalmente contectadas,
+      \item capas parcialmente conectadas.
     \end{itemize}
+  \item Las capas intermedias se conocen como \textit{capas ocultas}. Esta es la base del aprendizaje profundo o \textit{deep learning}.
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Perceptrón multicapa}
+
   \begin{figure}[h]
-    \centering
-    \includegraphics[width=.7\textwidth]{img/multicapa}
-  \end{figure}
+  \centering
+  \includegraphics[width=.7\textwidth]{img/multicapa}
+  \caption{Esquema de un perceptrón multicapa totalmente conectado con una capa oculta. Extraída de \parencite{izenman_modern_2008}.}
+  \label{fig:multi}
+\end{figure}
+
 \end{frame}
 
 \begin{frame}{Perceptrón multicapa}
@@ -393,15 +401,6 @@
     \centering
     \includegraphics[width=.6\textwidth]{img/learning-rate}
   \end{figure}
-\end{frame}
-
-\begin{frame}{Teorema de aproximación universal}
-El teorema de aproximación universal establece que una red feed-forward con una sola capa oculta que contiene un número finito de neuronas puede aproximarse a funciones continuas en subconjuntos compactos de $R_n$, bajo condiciones poco restrictivas sobre la función de activación.
-Dos tipos:
-\begin{itemize}
-  \item Ancho acotado.
-  \item Ancho no acotado.
-\end{itemize}
 \end{frame}
 
 \begin{frame}{Clasificación de redes neuronales}
@@ -489,6 +488,18 @@ de lenguaje natural.
   \includegraphics[width=.6\textwidth]{img/rnn}
 \end{figure}
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Teorema de aproximación universal}
+  \begin{itemize}
+\item El teorema de aproximación universal, probado en 1989, establece que una red \textit{feed-forward} con una sola capa oculta que contiene un número finito de neuronas puede aproximar con precisión arbitraria cualquier función continua en un subconjunto compacto de $\mathbb{R}^n$, bajo condiciones poco restrictivas sobre la función de activación.
+\item Existen dos versiones:
+\begin{itemize}
+  \item Ancho acotado y profundidad variable.
+  \item Ancho no acotado y profundidad fija.
+\end{itemize}
+  \end{itemize}
+
 \end{frame}
 
 \begin{frame}{CIFAR-10}
