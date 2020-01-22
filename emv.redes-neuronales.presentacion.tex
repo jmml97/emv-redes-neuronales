@@ -428,7 +428,7 @@
 
 \begin{frame}{Aspectos de diseño}
   \begin{itemize}
-    \item \textbf{Reutilizar resdes ya entrenadas}: Podemos utilizar redes preentrenadas para resolver problemas similares.
+    \item \textbf{Reutilizar redes ya entrenadas}: Podemos utilizar redes preentrenadas para resolver problemas similares.
 
     \item Por ejemplo, en una red entrenada para un problema de clasificación en $K$ clases, podemos eliminar de la misma la última capa encargada de realizar la clasificación y sustituirla por otra capa con $M \neq K$ clases.
 
@@ -437,9 +437,7 @@
 
 \end{frame}
 
-\begin{frame}{Clasificación de redes neuronales}
-  \begin{itemize}
-    \item Según el modelo de aprendizaje
+\begin{frame}{Clasificación de redes según su aprendizaje}
       \begin{itemize}
       \item \textbf{Aprendizaje supervisado}. El conjunto de entrenamiento se
         encuentra <<etiquetado>>.
@@ -447,19 +445,16 @@
       \item \textbf{Aprendizaje por refuerzo}. La red busca maximizar una función de
         recompensa <<acumulada>>.
       \end{itemize}
-    \item Según su topología\\
-      Presenta ciclos, totalmente conectada, neuronas conectadas consigo mismas...
-  \end{itemize}
 \end{frame}
 
 \begin{frame}{Autoencoders}
 \begin{itemize}
 \item Aprendizaje no supervisado.
-\item Codifica la entrada.
-\item Busca copiar su entrada en la salida. Está formado por:
+\item Codifica la entrada y busca copiarla en la salida.
+\item Se compone de dos partes diferenciadas:
   \begin{itemize}
-    \item Codificador
-    \item Decodificador
+    \item Codificador.
+    \item Decodificador.
   \end{itemize}
 \end{itemize}
 \begin{figure}[h]
