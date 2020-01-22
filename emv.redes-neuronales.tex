@@ -610,7 +610,7 @@ Las clases en las que se pueden clasificar las imágenes, como vemos en la Figur
 
 Construimos una pequeña red neural convolucional\footnotemark para clasificar imágenes de este conjunto de datos.
 
-Este modelo lo podemos dividir dos partes, la primera parte en la que se extraen características de las imágenes y una segunda parte que ... La primera parte .
+Este modelo lo podemos dividir dos partes, la primera parte en la que se extraen características de las imágenes y una segunda parte que funciona como un clasificador. En la primera parte podemos ver varias capas de convolución intercaladas con capas de activación no lineales (ReLU), y en la segunda un par de capas totalmente conectadas que utilizan dichas características para clasificar las imágenes. En la última capa tenemos una activación \textit{softmax} que asigna a cada neurona de salida la probabilidad de que la imagen considerada pertenezca a cada clase.
 
 \footnotetext{\url{https://github.com/keras-team/keras/blob/master/examples/cifar10_cnn.py}}
 
