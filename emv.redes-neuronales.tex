@@ -511,7 +511,7 @@ el que queremos representar la entrada, y se encuentra dividida en dos partes pr
 \begin{enumerate}
   \item \textit{Codificador. } Conjunto de capas que transforman la entrada al <<código>>.
   \item \textit{Decodificador. } Conjunto de capas que transforman el <<código>> a la entrada original.
-\end{itemize}
+\end{enumerate}
 
 \begin{figure}[h]
   \centering
@@ -573,7 +573,7 @@ codificar imágenes de números en un vector de valores reales. Esta base de dat
 
 \footnotetext{\url{https://github.com/ardendertat/Applied-Deep-Learning-with-Keras}}
 
-Utilizamos una red de 5 capas: dos capas para el codificador, una capa intermedia para el código y dos capas para el decodificador. Leeremos imágenes de tamaño 28x28 en escala de grises, que representaremos por un vector de píxeles con un valor entre 0 y 255. Cada neurona simulará un píxel, luego la primera capa tendrá $28 \times 28=784$ neuronas. Decidimos que la siguiente capa tendrá 128 neuronas y el código final, 4 neuronas. Luego subimos el tamaño nuevamente a 128 y finalmente a 784 neuronas, que será la imagen reconstruida. En la Figura \ref{fig:autoencoder_ex1}} podemos ver un ejemplo del resultado obtenido tras entrenar y evaluar la red.
+Utilizamos una red de 5 capas: dos capas para el codificador, una capa intermedia para el código y dos capas para el decodificador. Leeremos imágenes de tamaño 28x28 en escala de grises, que representaremos por un vector de píxeles con un valor entre 0 y 255. Cada neurona simulará un píxel, luego la primera capa tendrá $28 \times 28=784$ neuronas. Decidimos que la siguiente capa tendrá 128 neuronas y el código final, 4 neuronas. Luego subimos el tamaño nuevamente a 128 y finalmente a 784 neuronas, que será la imagen reconstruida. En la Figura \ref{fig:autoencoder_ex1} podemos ver un ejemplo del resultado obtenido tras entrenar y evaluar la red.
 
 \begin{figure}[h]
   \centering
