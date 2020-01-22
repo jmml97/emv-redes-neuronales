@@ -255,7 +255,7 @@ Para el envío de una señal la neurona presináptica envía neurotransmisores a
 Este envío suele ocurrir en periodos de tiempo de duración aleatoria, pero la tasa de envío depende de muchos factores, entre ellos la intensidad de la señal de <<entrada>> a la neurona presináptica.
 Esta intensidad se deriva de la proporción de dos tipos de sinapsis que recibe la neurona: las sinapsis inhibidoras, que previenen que la neurona envíe información, y las sinapsis excitadoras, que lo facilitan.
 
-Veremos a continuación que los procesos diseñados para las redes neuronales artificales siguen un esquema prácticamente idéntico al que acabamos de describir.
+Veremos a continuación que los procesos diseñados para las redes neuronales artificiales siguen un esquema prácticamente idéntico al que acabamos de describir.
 
 \section{Estructura y funcionamiento de las redes neuronales}
 \label{sec:estructura}
@@ -435,7 +435,7 @@ Para evitar este problema es posible aplicar técnicas de \textit{regularizació
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.7\textwidth]{img/fit}
+  \includegraphics[width=.9\textwidth]{img/fit}
   \caption{Distintas situaciones de ajuste en un mismo conjunto de datos. Extraída de \parencite{bhande_fit_2018}.}
   \label{fig:fit}
 \end{figure}
@@ -452,7 +452,7 @@ Elegir el valor apropiado de \textit{learning rate} puede ser una tarea muy comp
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.65\textwidth]{img/learning-rate}
+  \includegraphics[width=.5\textwidth]{img/learning-rate}
   \caption{Evolución de la función de pérdida en función del \textit{learning rate} elegido. Extraída de \parencite{quora_lr_2017}.}
   \label{fig:learning-rate}
 \end{figure}
@@ -595,18 +595,20 @@ imágenes. Si entrenamos la red para que dada una entrada de imágenes con ruido
   \label{fig:autoencoder_ex2}
 \end{figure}
 
-\subsection{Clasificación de imágenes en CIFAR-10}
-
-El conjunto de datos CIFAR-10 \parencite{rizhevsky_learning_2009} consta de $60.000$ imágenes en color de 32x32 píxeles divididas en 10 clases, con $6.000$ imágenes por clase. A su vez se realiza una división en en $50.000$ imágenes para el conjunto de entrenamiento y $10.000$ imágenes en para el conjunto de test.
-
-Las clases en las que se pueden clasificar las imágenes, como vemos en la Figura \ref{fig:cifar10}, son las siguientes: aviones, coches, pájaros, gatos, ciervos, perros, ranas, caballos, barcos y camiones. Las clases son completamente exclusivas, es decir, no hay parecidos entre clases similares, por ejemplo ningún coche se podrá confundir con un camión.
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=.7\textwidth]{img/cifar10}
   \caption{Clases del conjunto de datos CIFAR10. Extraída de \parencite{rizhevsky_cifar_2013}.}
   \label{fig:cifar10}
 \end{figure}
+
+\subsection{Clasificación de imágenes en CIFAR-10}
+
+El conjunto de datos CIFAR-10 \parencite{rizhevsky_learning_2009} consta de $60.000$ imágenes en color de 32x32 píxeles divididas en 10 clases, con $6.000$ imágenes por clase. A su vez se realiza una división en en $50.000$ imágenes para el conjunto de entrenamiento y $10.000$ imágenes en para el conjunto de test.
+
+Las clases en las que se pueden clasificar las imágenes, como vemos en la Figura \ref{fig:cifar10}, son las siguientes: aviones, coches, pájaros, gatos, ciervos, perros, ranas, caballos, barcos y camiones. Las clases son completamente exclusivas, es decir, no hay parecidos entre clases similares, por ejemplo ningún coche se podrá confundir con un camión.
+
+
 
 Construimos una pequeña red neuronal convolucional\footnotemark para clasificar imágenes de este conjunto de datos.
 
