@@ -220,6 +220,22 @@
 
 \begin{frame}{Neurona de McCulloch-Pitts}
   \begin{itemize}
+    \item Divide el espacio de entrada en dos mitades según el hiperplano $\sum_j X_j = \theta$.
+    \item Se puede representar cualquier función booleana mediante combinaciones de neuronas.
+
+    \vspace{1em}
+
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{img/and-or}
+    \caption{Neuronas de McCulloch-Pitts representando las funciones lógicas AND y OR. Extraída de \parencite{izenman_modern_2008}.}
+    \label{fig:and-or}
+  \end{figure}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Neurona de McCulloch-Pitts}
+  \begin{itemize}
     \item Este modelo no es adecuado para realizar un proceso de aprendizaje ya que hay que cambiar los valores de la neurona para resolver diferentes problemas.
     \item Se perdió pronto el interés en este modelo computacional y se desarrollaron otros.
   \end{itemize}
@@ -227,15 +243,24 @@
 
 \begin{frame}{Perceptrón de una capa}
   \begin{itemize}
-    \item El perceptrón es un sistema que imita el funcionamiento de una neurona, consistente en una neurona de \textit{McCulloch-Pitts} con pesos $\beta_i \in \mathbb{R}$
-    \item $\beta_i > 0$ conexiones exitadoras.
-    \item $\beta_i < 0$ conexiones inhibidoras.
-    \item $U \sum_j \beta_j X_j$
+    \item Neurona de \textit{McCulloch-Pitts} con pesos $\beta_i \in \mathbb{R}$ por cada conexión.
+    \item Si $\beta_i > 0$ la conexión es excitadora.
+    \item Si $\beta_i < 0$ la conexión es inhibidora.
+    \item Si  $\beta_i = 0$ no hay conexión.
+    \item Suma ponderada $U = \sum_j \beta_j X_j$ que se compara con el umbral. Se puede eliminar este último añadiendo un sesgo $\beta_0 = - \theta$ y una variable $X_0 = 1$.
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Perceptrón de una capa}
+  \begin{itemize}
   \begin{figure}[h]
     \centering
     \includegraphics[width=.7\textwidth]{img/perceptron}
+    \caption{Perceptrón de $r$ entradas binarias con pesos $\{\beta_j\}$ y salida binaria $Y$. Incluye el término de sesgo $\beta_0$. Extraída de \parencite{izenman_modern_2008}.}
+    \label{fig:perceptron}
   \end{figure}
+
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Perceptrón de una capa}
