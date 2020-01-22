@@ -461,7 +461,7 @@ Elegir el valor apropiado de \textit{learning rate} puede ser una tarea muy comp
 
 Una idea clave que rodea a las redes neuronales de más de una capa es que se estratifica el procesamiento de los datos, y cada capa se encarga de <<aprender>> una serie de características que van de lo general a lo particular. Es por esto que podemos aprovechar una red ya entrenada con un número elevado de datos para aplicarla a un problema distinto.
 
-Por ejemplo, si suponemos una red entrenada para un problema de clasificación en $K$ clases, podemos eliminando de la misma la últimas capa encargada de realizar la clasificación y sustituirla por otra capa de nuestra elección con $M \neq K$ clases. Podemos usar esta nueva red preentrenada para clasificar nuevos datos, siempre que estos tengan alguna relación con los datos con los que fue entrenada la red.
+Por ejemplo, si suponemos una red entrenada para un problema de clasificación en $K$ clases, podemos eliminando de la misma la última capa encargada de realizar la clasificación y sustituirla por otra capa de nuestra elección con $M \neq K$ clases. Podemos usar esta nueva red preentrenada para clasificar nuevos datos, siempre que estos tengan alguna relación con los datos con los que fue entrenada la red.
 
 \section{Clasificación de redes neuronales}
 \label{sec:clasificacion}
@@ -558,7 +558,7 @@ En teoría las redes recurrentes pueden usar información de secuencias de longi
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{img/rnn.jpeg}
+    \includegraphics[width=0.7\linewidth]{img/rnn.png}
     \caption{Ejemplo de red neuronal recurrente desenrrollada. Extraída de \parencite{nigam_understanding_2018}.}%
     \label{fig:rnn}
 \end{figure}
@@ -607,8 +607,6 @@ imágenes. Si entrenamos la red para que dada una entrada de imágenes con ruido
 El conjunto de datos CIFAR-10 \parencite{rizhevsky_learning_2009} consta de $60.000$ imágenes en color de 32x32 píxeles divididas en 10 clases, con $6.000$ imágenes por clase. A su vez se realiza una división en en $50.000$ imágenes para el conjunto de entrenamiento y $10.000$ imágenes en para el conjunto de test.
 
 Las clases en las que se pueden clasificar las imágenes, como vemos en la Figura \ref{fig:cifar10}, son las siguientes: aviones, coches, pájaros, gatos, ciervos, perros, ranas, caballos, barcos y camiones. Las clases son completamente exclusivas, es decir, no hay parecidos entre clases similares, por ejemplo ningún coche se podrá confundir con un camión.
-
-
 
 Construimos una pequeña red neuronal convolucional\footnotemark para clasificar imágenes de este conjunto de datos.
 

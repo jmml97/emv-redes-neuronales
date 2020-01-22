@@ -388,19 +388,55 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Principales problemas}
-\textbf{Overfitting}: La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones.
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=.6\textwidth]{img/overfitting}
-  \end{figure}
+\begin{frame}{Aspectos de diseño}
+  \begin{itemize}
+\item \textbf{\texttit{Overfitting}}: La red ha memorizado los ejemplos de entrenamiento, pero no ha aprendido a generalizar a nuevas situaciones.
+  \end{itemize}
+  \vspace{1em}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{img/overfitting}
+  \caption{Gráficas de precisión en el conjunto de entrenamiento y de validación cuando se produce sobreajuste. Extraída de \parencite{quora_overfitting_2016}.}
+  \label{fig:overfitting}
+\end{figure}
 \end{frame}
-\begin{frame}{Principales problemas}
-\textbf{Learning rate}: Indica cuanto hay que cambiar el modelo en respuesta al error estimado cada vez que actualizan los pesos de este.
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=.6\textwidth]{img/learning-rate}
-  \end{figure}
+
+\begin{frame}{Aspectos de diseño}
+  \begin{itemize}
+    \item \textbf{Problema de \textit{bias-variance tradeoff}}: es necesario encontrar un equilibrio entre el \textit{sesgo} y la varianza del modelo.
+  \end{itemize}
+  \vspace{1em}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.9\textwidth]{img/fit}
+  \caption{Distintas situaciones de ajuste en un mismo conjunto de datos. Extraída de \parencite{bhande_fit_2018}.}
+  \label{fig:fit}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Aspectos de diseño}
+  \begin{itemize}
+    \item \textbf{Evitar óptimos locales}: Hay que ajustar el \texit{learning rate} para controlar la intensidad de variación de los pesos en cada iteración.
+  \end{itemize}
+\vspace{1em}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/learning-rate}
+  \caption{Evolución de la función de pérdida en función del \textit{learning rate} elegido. Extraída de \parencite{quora_lr_2017}.}
+  \label{fig:learning-rate}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Aspectos de diseño}
+  \begin{itemize}
+    \item \textbf{Reutilizar resdes ya entrenadas}: Podemos utilizar redes preentrenadas para resolver problemas similares.
+
+    \item Por ejemplo, en una red entrenada para un problema de clasificación en $K$ clases, podemos eliminar de la misma la última capa encargada de realizar la clasificación y sustituirla por otra capa con $M \neq K$ clases.
+
+    \item Los datos con los que fue entrenada deben guardar relación con los nuevos datos.
+  \end{itemize}
+
 \end{frame}
 
 \begin{frame}{Clasificación de redes neuronales}
@@ -511,6 +547,20 @@ de lenguaje natural.
   \end{figure}
 \end{itemize}
 
+\end{frame}
+
+\begin{frame}{Modelo}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\textwidth]{img/model}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Resultados}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\textwidth]{img/graficascifar}
+  \end{figure}
 \end{frame}
 
 \begin{frame}[t,allowframebreaks]{Referencias}
