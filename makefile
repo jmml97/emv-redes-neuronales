@@ -4,6 +4,7 @@
 #
 # Change only the variable below to the name of the main tex file.
 PROJNAME=emv.redes-neuronales
+SLIDESNAME=emv.redes-neuronales.presentacion
 
 # You want latexmk to *always* run, because make does not have all the info.
 # Also, include non-file targets in .PHONY so they are run regardless of any
@@ -12,7 +13,7 @@ PROJNAME=emv.redes-neuronales
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
-all: $(PROJNAME).pdf
+all: $(PROJNAME).pdf $(SLIDESNAME).pdf
 
 # MAIN LATEXMK RULE
 
@@ -24,6 +25,9 @@ all: $(PROJNAME).pdf
 # missing file reference and interactively asking you for an alternative.
 
 $(PROJNAME).pdf: $(PROJNAME).tex
+	latexmk -lualatex -interaction=nonstopmode -use-make $<
+
+$(SLIDESNAME).pdf: $(SLIDESNAME).tex
 	latexmk -lualatex -interaction=nonstopmode -use-make $<
 
 cleanall:
