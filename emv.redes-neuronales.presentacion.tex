@@ -380,19 +380,34 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Principales problemas}
+\begin{frame}{Capacidad de generalización}
 \textbf{Overfitting}: La red ha memorizado los ejemplos de capacitación, pero no ha aprendido a generalizar a nuevas situaciones.
   \begin{figure}[h]
     \centering
     \includegraphics[width=.6\textwidth]{img/overfitting}
   \end{figure}
 \end{frame}
-\begin{frame}{Principales problemas}
+
+\begin{frame}{Capacidad de generalización}
+\textbf{\textit{bias-variance tradeoff}}: persigue enconetrar un equilibrio entre el \textit{sesgo} y la varianza del modelo.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\textwidth]{img/fit}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Caída en óptimos locales}
 \textbf{Learning rate}: Indica cuanto hay que cambiar el modelo en respuesta al error estimado cada vez que actualizan los pesos de este.
   \begin{figure}[h]
     \centering
     \includegraphics[width=.6\textwidth]{img/learning-rate}
   \end{figure}
+\end{frame}
+
+\begin{frame}{Transferencia de conocimiento}
+\textbf{Reutilizar resdes ya entrenadas}:
+
+Suponemos una red entrenada para cun problema de clasificación en $K$ clases, podemos eliminando de la misma la última capa encargada de realizar la clasificación y sustituirla por otra capa con $M \neq K$ clases. 
 \end{frame}
 
 \begin{frame}{Teorema de aproximación universal}
@@ -500,6 +515,20 @@ de lenguaje natural.
   \end{figure}
 \end{itemize}
 
+\end{frame}
+
+\begin{frame}{Modelo}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\textwidth]{img/model}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Resultados}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\textwidth]{img/graficascifar}
+  \end{figure}
 \end{frame}
 
 \begin{frame}[t,allowframebreaks]{Referencias}
