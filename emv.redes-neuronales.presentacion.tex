@@ -404,14 +404,19 @@ Dos tipos:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Clasificación según el modelo de aprendizaje}
-\begin{itemize}
-  \item \textbf{Aprendizaje supervisado}. El conjunto de entrenamiento se
-    encuentra <<etiquetado>>.
-  \item \textbf{Aprendizaje no supervisado}. Minimizar una función de coste.
-  \item \textbf{Aprendizaje por refuerzo}. La red busca maximizar una función de
-    recompensa <<acumulada>>.
-\end{itemize}
+\begin{frame}{Clasificación de redes neuronales}
+  \begin{itemize}
+    \item Según el modelo de aprendizaje
+      \begin{itemize}
+      \item \textbf{Aprendizaje supervisado}. El conjunto de entrenamiento se
+        encuentra <<etiquetado>>.
+      \item \textbf{Aprendizaje no supervisado}. Minimizar una función de coste.
+      \item \textbf{Aprendizaje por refuerzo}. La red busca maximizar una función de
+        recompensa <<acumulada>>.
+      \end{itemize}
+    \item Según su topología\\
+      Presenta ciclos, totalmente conectada, neuronas conectadas consigo mismas...
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Autoencoders}
@@ -441,13 +446,19 @@ Imagenes reconstruidas.\\
 Codificación en $\mathbb{R}^4$. Primera imagen: $\{13.325841, 16.394411, 13.2127905, 0.90243316\}$
 \end{frame}
 
-
 \begin{frame}{Ejemplo eliminación de ruido}
 Entrenamos la red con imágenes con ruido como entrada e imágenes sin ruido como
 salida deseada.
 \begin{figure}[h]
   \includegraphics[width=.6\textwidth]{img/autoencoder_ex2}
 \end{figure}
+\end{frame}
+
+\begin{frame}{Redes convolucionales}
+    \begin{itemize}
+        \item Uno de los problemas principales de las redes neuronales convencionales en el tratamiento de imágenes es el gran número de parámetros.
+        \item La solución más extendida son las redes convolucionales.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Redes convolucionales}
@@ -461,7 +472,13 @@ salida deseada.
   \end{itemize}
 \end{frame}
 
-
+\begin{frame}{Redes convolucionales}
+    \begin{itemize}
+        \item Las capas más externas extraen características más generales.
+        \item Las capas más profundas extraen características más específicas.
+        \item Al final se añade una capa completamente conectada que realiza la clasificación de las imágenes.
+    \end{itemize}
+\end{frame}
 
 \begin{frame}{Redes Neuronales Recurrentes}
 \begin{itemize}
