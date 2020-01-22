@@ -15,6 +15,8 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
 
 % Matemáticas
 
@@ -220,6 +222,22 @@
 
 \begin{frame}{Neurona de McCulloch-Pitts}
   \begin{itemize}
+    \item Divide el espacio de entrada en dos mitades según el hiperplano $\sum_j X_j = \theta$.
+    \item Se puede representar cualquier función booleana mediante combinaciones de neuronas.
+
+    \vspace{1em}
+
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{img/and-or}
+    \caption{Neuronas de McCulloch-Pitts representando las funciones lógicas AND y OR. Extraída de \parencite{izenman_modern_2008}.}
+    \label{fig:and-or}
+  \end{figure}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Neurona de McCulloch-Pitts}
+  \begin{itemize}
     \item Este modelo no es adecuado para realizar un proceso de aprendizaje ya que hay que cambiar los valores de la neurona para resolver diferentes problemas.
     \item Se perdió pronto el interés en este modelo computacional y se desarrollaron otros.
   \end{itemize}
@@ -227,59 +245,113 @@
 
 \begin{frame}{Perceptrón de una capa}
   \begin{itemize}
-    \item El perceptrón es un sistema que imita el funcionamiento de una neurona, consistente en una neurona de \textit{McCulloch-Pitts} con pesos $\beta_i \in \mathbb{R}$
-    \item $\beta_i > 0$ conexiones exitadoras.
-    \item $\beta_i < 0$ conexiones inhibidoras.
-    \item $U \sum_j \beta_j X_j$
+    \item Neurona de \textit{McCulloch-Pitts} con pesos $\beta_i \in \mathbb{R}$ por cada conexión.
+    \item Si $\beta_i > 0$ la conexión es excitadora.
+    \item Si $\beta_i < 0$ la conexión es inhibidora.
+    \item Si  $\beta_i = 0$ no hay conexión.
+    \item Suma ponderada $U = \sum_j \beta_j X_j$ que se compara con el umbral. Se puede eliminar este último añadiendo un sesgo $\beta_0 = - \theta$ y una variable $X_0 = 1$.
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Perceptrón de una capa}
   \begin{figure}[h]
     \centering
     \includegraphics[width=.7\textwidth]{img/perceptron}
+    \caption{Perceptrón de $r$ entradas binarias con pesos $\{\beta_j\}$ y salida binaria $Y$. Incluye el término de sesgo $\beta_0$. Extraída de \parencite{izenman_modern_2008}.}
+    \label{fig:perceptron}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Perceptrón de una capa}
   \begin{itemize}
-    \item Linealmente separables: se puede interpretar como un algoritmo de clasificación binaria.
-    \item No linealmente separables: la función asociada no es computable por un Perceptrón.
+    \item Si los datos de entrada son linealmente separables, se puede interpretar como un algoritmo de clasificación binaria: divide los datos según el hiperplano $U=0$.
+    \item Si no son linealmente separables, la función asociada no es computable por un perceptrón.
   \end{itemize}
-  \begin{figure}[h]
+  \vspace{1em}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
     \centering
-    \includegraphics[width=.2\textwidth]{img/non-separable}
-    \includegraphics[width=.2\textwidth]{img/separable}
+    \includegraphics[width=.6\textwidth]{img/non-separable}
+    \caption{No linealmente separables}
+  \end{subfigure}
+  \qquad
+  \begin{subfigure}[b]{0.4\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{img/separable}
+    \caption{Linealmente separables}
+  \end{subfigure}
+  \caption{Ejemplos de datos bidimensionales separables y no separables linealmente. Extraída de \parencite{wikipedia_separable}.}
+  \label{fig:separable}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Redes de una capa}
+\begin{itemize}
+  \item Podemos considerar una red de perceptrones interconectados organizados en dos grupos: nodos de entrada $\{X_j\}$ y nodos de salida $\{Y_k\}$, con valores reales o discretos.
+  \item Cada conexión $X_j \to Y_k$ tiene un peso $\beta_{jk}$.
+  \vspace{1em}
+
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\textwidth]{img/single}
+    \caption{Esquema de red con perceptrones de una capa. Extraída de \parencite{wiki_single_2015}.}
+    \label{fig:perceptron}
   \end{figure}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Funciones de activación}
   \begin{itemize}
-    \item Entrada: $X=(X_1, \cdots , X_r)^T$ vector aleatorio de entradas y tenemos $s$ nodos de salida, en cada uno de ellos se calcula:
-    $$U_k = \beta_{0k} + X^T \beta_{k} , \ k = 1, \cdots , s $$
-    \item Salida: $$ U_k = f(\beta_{0k} + X^T \beta_k) \ k = 1, \cdots , s$$
-  \end{itemize}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=.7\textwidth]{img/relu}
-    \caption{Gráfica de la función ReLU.}
-  \end{figure}
-\end{frame}
+    \item Si tenemos datos de entrada $X=(X_1, \cdots , X_r)^T$ y $s$ nodos de salida, para cada uno de ellos hemos hecho
+    $$U_k = \beta_{0k} + X^T \beta_{k} , \quad k = 1, \dots , s $$
+    \item Necesidad de introducir no linealidad. Consideramos una función $f$ no lineal para la salida:
+    $$ U_k = f(\beta_{0k} + X^T \beta_k) \quad k = 1, \dots , s$$
+  \item Funciones de activación usuales: sigmoides como la logística o la tangente hiperbólica.
+  \item Para clasificación binaria podemos usar la función signo. Para clasificación multiclase se introduce una función vectorial \textit{softmax}:
 
-\begin{frame}{Procesos de aprendizaje}
-\begin{itemize}
-\item La estrategia de las redes es utilizar el conocimiento de la clase correcta para ir pasando ejemplos por la red y predecir la clase a la que pertenece cada uno, intentando corregir los pesos si se detecta un error. Esta técnica se conoce como \textbf{aprendizaje supervisado}.
-\item La regla para actualizar los pesos en cada iteración es la siguiente:
-  \begin{enumerate}
-    \item Si la versión actual de los pesos $\beta_h$ consigue clasificar correctamente $X_h$, no cambiamos los pesos para la siguiente iteración.
-    \item Si con los pesos $\beta_h$ no obtenemos una clasificación correcta, hacemos:
-    $$\beta_{h+1} = \beta_h + \eta \, \operatorname{signo}(X^{t}_{h} \beta_h)X_h  $$
-  \end{enumerate}
-  El parámetros $\eta > 0$ se conoce como \textit{learning rate}.
+  $$f(x)_i = e^{x_i}/\sum_{k=1}^s e^{x_k}$$
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Procesos de aprendizaje}
+\begin{frame}{Funciones de activación: ReLU}
   \begin{itemize}
-    \item Una solución del problema será un vector de pesos $\beta^\ast$ que clasifique correctamente todos los ejemplos. Y de aquí obtenemos el siguiente resultado:
-    \item \textbf{Teorema (Convergencia del perceptrón)} Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
+    \item Actualmente se usa la función $f(x) = \max \{0, x\}$, conocida como \textit{Rectified Linear Unit}.
+  \end{itemize}
+
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\textwidth]{img/relu}
+    \caption{Gráfica de la función ReLU.}
+  \end{figure}
+
+\end{frame}
+
+\begin{frame}{Proceso de aprendizaje}
+\begin{itemize}
+\item Suponemos una serie de ejemplos de dos clases $\Pi_1$ y $\Pi_2$. Diremos que $X \in \Pi_1$ si y solo si $X^T\beta \ge 0$.
+\item Utilizamos el conocimiento de la clase correcta para ir pasando ejemplos por la red y predecir la clase a la que pertenece cada uno.
+\item Corregimos los pesos en cada iteración si se detecta un error.
+\item Una solución será un vector de pesos $\beta^\ast$ que clasifique correctamente todos los ejemplos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Proceso de aprendizaje}
+\begin{itemize}
+\item Para una sucesión de entradas $\{X_h\}$, regla para actualizar los pesos en cada iteración es la siguiente:
+  \begin{enumerate}
+    \item Si la versión actual de los pesos $\beta_h$ consigue clasificar correctamente $X_h$, no cambiamos los pesos para la siguiente iteración.
+    \item Si con los pesos $\beta_h$ no obtenemos una clasificación correcta, hacemos:
+    $$\beta_{h+1} = \beta_h + \eta \, \operatorname{signo}(X^{t}_{h} \beta_h)X_h $$
+  \end{enumerate}
+  \item El parámetros $\eta > 0$ se conoce como \textit{learning rate}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Proceso de aprendizaje}
+  \begin{itemize}
+    \item \textbf{Teorema (Convergencia del perceptrón). } Para un problema de clasificación binaria con clases linealmente separables, si existe una solución $\beta^\ast$, el algoritmo descrito anteriormente la encontrará en un número finito de iteraciones.
   \end{itemize}
 \end{frame}
 
