@@ -220,7 +220,7 @@ afterskip=2ex]{section,subsection,subsubsection}
 \section{Introducción}
 
 El objetivo de este trabajo es el estudio del funcionamiento y de los fundamentos estadísticos de las redes neuronales artificiales.
-Para ello indagaremos primeramente en el motivo de que se llamen así y las similitudes con las redes neuronales biológicas. Comenzaremos en la Sección \ref{sec:estructura} haciendo un recorrido histórico desde los inicios de las redes neuronales artificiales y comentando cómo ha ido evolucionando la estructura de las mismas, así como su proceso básico de funcionalmiento. En la Sección \ref{sec:teorema} justificaremos el nombre de \textit{aproximadores universales} con el que son referidas a veces las redes neuronales. Continuaremos en la Sección \ref{sec:diseño} explicando una serie de consideraciones a tener en cuenta a la hora de diseñar redes neuronales. En la Sección \ref{sec:clasificacion} realizaremos una clasificación (no exhaustiva) de las redes neuronales más populares en cuanto a diversos aspectos. Finalmente concluiremos en la Sección \ref{sec:ejemplos} presentando un par de ejemplos prácticos de aplicación de redes neuronales a un problema real, mostrando los resultados obtenidos.
+Para ello indagaremos primeramente en el motivo de que se llamen así y las similitudes con las redes neuronales biológicas. Comenzaremos en la Sección \ref{sec:estructura} haciendo un recorrido histórico desde los inicios de las redes neuronales artificiales y comentando cómo ha ido evolucionando la estructura de las mismas, así como su proceso básico de funcionamiento. En la Sección \ref{sec:teorema} justificaremos el nombre de \textit{aproximadores universales} con el que son referidas a veces las redes neuronales. Continuaremos en la Sección \ref{sec:diseño} explicando una serie de consideraciones a tener en cuenta a la hora de diseñar redes neuronales. En la Sección \ref{sec:clasificacion} realizaremos una clasificación (no exhaustiva) de las redes neuronales más populares en cuanto a diversos aspectos. Finalmente concluiremos en la Sección \ref{sec:ejemplos} presentando un par de ejemplos prácticos de aplicación de redes neuronales a un problema real, mostrando los resultados obtenidos.
 
 Las cuestiones sobre la mente y el pensamiento humanos han estado presentes en el pensamiento filosófico desde sus inicios.
 Posteriormente, el funcionamiento del cerebro y de la percepción humana han sido asuntos por los que la ciencia se ha interesado.
@@ -230,7 +230,7 @@ Trata además de responder diversas cuestiones sobre la mente y la inteligencia.
 Para ello la ciencia cognitiva se sirve del conocimiento aportado por numerosos campos: psicología, antropología, neurociencia, filosofía, entre otros.
 
 Uno de los modelos sobre cómo funcionan la mente y el cerebro es el conexionismo, cuyo principio básico es que los fenómenos mentales pueden describirse mediante redes compuestas por unidades sencillas (neuronas) e interconectadas entre sí.
-En este modelo se han basado las redes neuronales artificales desde las primeras propuestas en la década de 1940.
+En este modelo se han basado las redes neuronales artificiales desde las primeras propuestas en la década de 1940.
 Inicialmente las redes neuronales se diseñaron con el fin último de imitar la actividad cerebral.
 Ahora se utilizan de forma más abstracta como una red de elementos de computación no lineales hiperconectados.
 
@@ -279,7 +279,7 @@ A pesar de la universalidad mostrada, este modelo no es adecuado para realizar u
 
 \subsection{Perceptrón de una capa}
 
-A principios de los años 60 se produjo una segunda oleada de interés en las redes neuronales artificales, cuando el psicólogo Frank Rosenblatt desarrolló un sistema llamado \textit{perceptrón} \parencite{rosenblatt_perceptron_1958} para imitar el funcionamiento de una neurona. Se trata básicamente de una neurona de McCulloch-Pitts dotada de unos \textit{pesos} $\beta_i \in \mathbb{R}$ en cada conexión $i=1,2,\dots, r$. Los pesos positivos representan conexiones excitadoras, los pesos negativos conexiones inhibidoras y la magnitud de los mismos muestra la fuerza de la conexión.
+A principios de los años 60 se produjo una segunda oleada de interés en las redes neuronales artificiales, cuando el psicólogo Frank Rosenblatt desarrolló un sistema llamado \textit{perceptrón} \parencite{rosenblatt_perceptron_1958} para imitar el funcionamiento de una neurona. Se trata básicamente de una neurona de McCulloch-Pitts dotada de unos \textit{pesos} $\beta_i \in \mathbb{R}$ en cada conexión $i=1,2,\dots, r$. Los pesos positivos representan conexiones excitadoras, los pesos negativos conexiones inhibidoras y la magnitud de los mismos muestra la fuerza de la conexión.
 
 En este caso, se calcula la suma ponderada $U=\sum_j \beta_j X_j$, y la neurona se activa únicamente si $U\ge \theta$. Podemos convertir el umbral a $0$ introduciendo un elemento de \textit{sesgo} $\beta_0 = -\theta$ y una nueva pseudovariable $X_0 = 1$. De esta forma, como $U-\theta = \beta_0 + U$, podemos simplemente comparar $U=\sum_{j=0}^r \beta_j X_j$ con $0$. En la Figura \ref{fig:perceptron} podemos ver un esquema de un perceptrón descrito de esta forma.
 
@@ -448,7 +448,7 @@ Perseguimos minimizar a la vez el sesgo y la varianza del modelo para capturar a
 
 Una situación muy común en el contexto de las redes neuronales es que tras un período de entrenamiento se alcance un mínimo local de la función de error, y la red ya no consiga seguir aprendiendo para disminuirlo aún más el error. Para controlar este fenómeno se ajusta el parámetro de \textit{learning rate} o tasa de aprendizaje. Como ya comentamos, este parámetro es el que indica cuánto hay que cambiar los pesos del modelo en respuesta al error estimado cada vez que se realiza un pase hacia delante de los datos por la red.
 
-Elegir el valor apropiado de \textit{learning rate} puede ser una tarea muy complicada, ya que un valor demasiado pequeño puede acarrear que el error de que la red no se optmice en el proceso de entrenamiento, mientras que elegir un parámetro demasiado elevado puede llevar a la que red caiga en óptimos locales y deje de aprender. Podemos ver un estudio del comportamiento de la red en función de este parámetro en la Figura \ref{fig:learning-rate}.
+Elegir el valor apropiado de \textit{learning rate} puede ser una tarea muy complicada, ya que un valor demasiado pequeño puede acarrear que el error de que la red no se optimice en el proceso de entrenamiento, mientras que elegir un parámetro demasiado elevado puede llevar a la que red caiga en óptimos locales y deje de aprender. Podemos ver un estudio del comportamiento de la red en función de este parámetro en la Figura \ref{fig:learning-rate}.
 
 \begin{figure}[h]
   \centering
@@ -474,9 +474,9 @@ Las redes neuronales se pueden clasificar según el paradigma de entrenamiento q
   datos de entrada se dan junto con una función de coste (una función de los
   datos y la salida de la red). El objetivo de la red es minimizar dicha función
   de coste. Estas redes se utilizan generalmente para resolver problemas de
-  estimación y clustering.
+  estimación y \textit{clustering}.
 \item \textit{Aprendizaje por refuerzo. } El objetivo de este tipo de
-  entrenamiento es hacer que la red adapte una politica de acción que resulte en elegir la mejor acción posible en cada estado para maximizar una \textit{función de recompensa}. Se utiliza en problemas de optimización de control, y puede realizarse el entrenamiento en tiempo real.
+  entrenamiento es hacer que la red adapte una política de acción que resulte en elegir la mejor acción posible en cada estado para maximizar una \textit{función de recompensa}. Se utiliza en problemas de optimización de control, y puede realizarse el entrenamiento en tiempo real.
 \end{enumerate}
 
 Presentamos ahora algunos tipos de redes atendiendo principalmente a su topología.
@@ -499,7 +499,7 @@ A continuación explicaremos el concepto de convolución, que es el principal mo
 
 Dicho esto, una capa de una red convolucional consiste en una serie de filtros a aplicar a la imagen resultante de la capa anterior, siendo los valores de dichos filtros los pesos que queremos estimar.
 
-En general, las primeras capas de una red convolucional son las encargadas de extraer las características más generales de la imagen, mientras que las más profundas utilizan la información extraída por las capas anteriores, capturando carácterísticas más específicas. Finalmente, se añade una capa completamente conectada, que es la encargada de realizar la clasificación de la imagen con las características recogidas.
+En general, las primeras capas de una red convolucional son las encargadas de extraer las características más generales de la imagen, mientras que las más profundas utilizan la información extraída por las capas anteriores, capturando características más específicas. Finalmente, se añade una capa completamente conectada, que es la encargada de realizar la clasificación de la imagen con las características recogidas.
 
 Este tipo de redes son muy útiles gracias a la multitud de propiedades que tiene la operación de convolución (conmutatividad, asociatividad, distributividad, ...), y a que sería inviable entrenar una red completamente conectada que trabajase con imágenes de tamaño elevado, pues el número de parámetros sería demasiado grande.
 
@@ -539,7 +539,7 @@ Despues el codificador reconstruye $\pmb x'$ de la misma dimensión que $\pmb x$
 \[
 \pmb x' = \sigma' (\pmb W' \pmb h + \pmb b'),
 \]
-donde $\sigma', \pmb W'$ y $\pmb b'$ no estan relacionados con sus equivalentes en el codificador. El \textit{autoencoder} busca entonces minimizar el error cuadrático, normalmente
+donde $\sigma', \pmb W'$ y $\pmb b'$ no están relacionados con sus equivalentes en el codificador. El \textit{autoencoder} busca entonces minimizar el error cuadrático, normalmente
 referido como pérdida:
 \[
 \mathcal{L}(\pmb x, \pmb x') = \|\pmb x-\pmb x'\|^2 = \|\pmb x - \sigma'(\pmb W'(\sigma(\pmb W \pmb x + \pmb b))+ \pmb b')\|^2\,.
@@ -552,9 +552,9 @@ Las redes neuronales recurrentes, o RNN de forma abreviada, son una de las varia
 
 En general, las redes neuronales convencionales procesan una entrada a través de un conjunto de capas y producen una salida, asumiendo que dos entradas consecutivas son independientes. Sin embargo, en escenarios de la vida real esto no siempre es cierto, siendo un ejemplo muy claro el intentar predecir la siguiente palabra de una oración, donde es primordial conocer el conjunto de palabras anteriores.
 
-Las RNN intentan solucionar este problema realizando el mismo trabajo para cada elemento de una secuencia, dependiendo la salida de los cálculos previos. Es decir, se produce un fenómeno de \textit{retroalimentación} mediante el cual las capas de la red obtienen información de capas posteriores, y el flujo de infomación ya no es unidireccional. Esta diferencia es clave con respecto a las redes \textit{feed-forward}.
+Las RNN intentan solucionar este problema realizando el mismo trabajo para cada elemento de una secuencia, dependiendo la salida de los cálculos previos. Es decir, se produce un fenómeno de \textit{retroalimentación} mediante el cual las capas de la red obtienen información de capas posteriores, y el flujo de información ya no es unidireccional. Esta diferencia es clave con respecto a las redes \textit{feed-forward}.
 
-En teoría las redes recurrentes pueden usar información de secuencias de longitud arbitraria, pero en la práctica están limitadas a coger información de unos pocos pasos anteriores. Este problema se soluciona mediante el uso de redes de arquitectura \textit{long short-term memory}, que estan basadas en las RNN. En la Figura \ref{fig:rnn} mostramos un ejemplo de la estructura de una RNN.
+En teoría las redes recurrentes pueden usar información de secuencias de longitud arbitraria, pero en la práctica están limitadas a coger información de unos pocos pasos anteriores. Este problema se soluciona mediante el uso de redes de arquitectura \textit{long short-term memory}, que están basadas en las RNN. En la Figura \ref{fig:rnn} mostramos un ejemplo de la estructura de una RNN.
 
 \begin{figure}[h]
     \centering
@@ -608,7 +608,7 @@ Las clases en las que se pueden clasificar las imágenes, como vemos en la Figur
   \label{fig:cifar10}
 \end{figure}
 
-Construimos una pequeña red neural convolucional\footnotemark para clasificar imágenes de este conjunto de datos.
+Construimos una pequeña red neuronal convolucional\footnotemark para clasificar imágenes de este conjunto de datos.
 
 FALTA EXPLICAR EL MODELO
 
